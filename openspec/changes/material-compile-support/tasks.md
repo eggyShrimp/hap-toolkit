@@ -1,13 +1,13 @@
 ## 1. prefers-material 媒体特征
 
-- [ ] 1.1 在 `packages/hap-compiler/src/style/mediaquery.js` 注册 `prefers-material` 映射与 `none | frosted | glass` 取值校验
-- [ ] 1.2 新增 `packages/hap-compiler/test/unit/style/mediaquery.test.js`：合法值编出、非法值告警丢弃、与 `prefers-color-scheme` 组合、未知特征回归
+- [ ] 1.1 在 `packages/hap-compiler/src/style/mediaquery.js` 注册 `prefers-material` 映射与 `none | frosted | glass` 取值校验（小写精确匹配）
+- [ ] 1.2 新增 `packages/hap-compiler/test/unit/style/mediaquery.test.js`：合法值编出、非法值告警丢弃、大小写严格匹配、与 `prefers-color-scheme` 组合、未知特征回归
 
 ## 2. 轻卡材质校验核心
 
-- [ ] 2.1 新增 `packages/hap-packager/src/validators/material.js`：颜色解析（hex/rgb/rgba/transparent/动态值）、根节点选择器匹配、上下文构建（内联优先、`@MEDIA` 深色提取）
-- [ ] 2.2 在 `material.js` 实现 `DEFAULT_MATERIAL_RULES`（声明检查、solid 背景/图片/浅色/深色、透明度）与 `validateMaterialCard` 运行器（诊断结构、规则异常兜底）
-- [ ] 2.3 新增 `packages/hap-packager/test/unit/func/material.test.js`：工具函数、默认规则逐条、边界（动态值、子节点选择器）、规则可插拔
+- [ ] 2.1 新增 `packages/hap-packager/src/validators/material.js`：颜色解析（hex/rgb/rgba/transparent/动态值）、根节点选择器匹配、上下文构建（内联优先、`backgroundImage` 与 `background` 简写渐变识别、全部 `@MEDIA` 条目提取）
+- [ ] 2.2 在 `material.js` 实现 `DEFAULT_MATERIAL_RULES`（声明检查、solid 背景/图片与简写渐变/浅色/深色全规则、透明度全媒体覆盖）与 `validateMaterialCard` 运行器（诊断结构、规则异常兜底）
+- [ ] 2.3 新增 `packages/hap-packager/test/unit/func/material.test.js`：工具函数、默认规则逐条、边界（动态值、子节点选择器、`background` 简写、多深色规则、媒体内透明、custom 渐变放行）、规则可插拔
 
 ## 3. 插件与接入
 

@@ -2,7 +2,7 @@
 
 ### Requirement: 编译器注册 prefers-material 媒体特征
 
-编译器 SHALL 将 `prefers-material` 识别为受支持的离散型媒体特征，合法取值为 `none | frosted | glass`，并在编译产物中保留对应媒体条件。
+编译器 SHALL 将 `prefers-material` 识别为受支持的离散型媒体特征（按 W3C MQ5 `prefers-*` 离散特征惯例实现的平台扩展，详见 design 的「W3C 对齐与扩展边界」），合法取值为 `none | frosted | glass`（小写精确匹配），并在编译产物中保留对应媒体条件。
 
 #### Scenario: 合法取值编入产物
 
@@ -18,6 +18,11 @@
 
 - **WHEN** 样式包含 `@media (prefers-material: glossy)`
 - **THEN** 输出 WARN 提示取值必须为 `none | frosted | glass`，且该规则不进入编译产物
+
+#### Scenario: 取值大小写严格匹配
+
+- **WHEN** 样式包含 `@media (prefers-material: Glass)` 等非小写取值
+- **THEN** 按非法取值处理：输出 WARN 并丢弃该规则（与既有媒体特征行为一致）
 
 #### Scenario: 既有媒体特征行为不受影响
 

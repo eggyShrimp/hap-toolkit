@@ -23,6 +23,7 @@
 - 不校验 JS 卡（`type !== "lite"`）与非卡片页面
 - 不在本轮定义最终「行业/平台标准」，仅按当前需求文档实现并可配置
 - 不追求带源码行列号的诊断（本期采用产物级校验，见 Decisions）
+- 不实现 W3C MQ5 的布尔上下文（`(prefers-material)`）与 `@custom-media`；不做大小写归一化（与既有媒体特征一致，见 D7）
 
 ## Decisions
 
@@ -50,10 +51,15 @@
 
 - 根节点元信息：编译产物中轻卡静态 class 存于 `classList: string[]`（轻卡不支持动态 class 混用），id 为静态字符串
 - 根节点背景来源：模板内联 `style` 优先于样式表；样式表中仅匹配「简单选择器」（class/id 组合），后代/子代选择器视为子节点，不参与判定
-- 深色背景：从 `@MEDIA` 中条件含 `prefers-color-scheme: dark` 的根节点背景提取
-- 颜色比较：大小写不敏感，允许等价 `rgb()` 形式；`transparent` 视为 alpha=0
+  - 实测：编译器的 `background` 简写仅支持渐变，产物键为 `background`（JSON 字符串）；`background-image` 仅支持 url，产物键为 `backgroundImage`；纯色必须写 `background-color`
+- 背景图/渐变判定：`backgroundImage` 与 `background` 简写（含渐变结构）均视为图片/渐变背景
+- 深色背景：从 `@MEDIA` 中条件含 `prefers-color-scheme: dark` 的根节点背景提取；判定语义为「至少存在一条深色根背景，且所有深色根背景均为 `#1A1A1B`」
+- 透明度检查：覆盖基础规则与全部 `@MEDIA` 条目（含 `prefers-color-scheme: dark` 及组合条件）
+- 颜色比较：大小写不敏感，允许等价 `rgb()` 形式；`transparent` 视为 alpha=0；无法识别的格式（动态表达式、编译器不支持的现代颜色语法）跳过检查，不误报
 - 动态表达式（`{{}}`）无法静态判定 → 跳过对应检查，不误报
+- 校验基于编译产物中的「最终生效值」：编译器已判定非法并丢弃的声明（如 `background: #fff`）不会出现在产物中，可能表现为「根节点未设置背景」的二次提示
 - 子节点自身背景不检查（需求文档 §4.3 #13：内部背景不受材质影响）
+- `backgroundType` 取值按小写精确匹配（`solid` / `custom`）
 
 ### D5. 级别取值
 
@@ -62,8 +68,22 @@
 
 ### D6. 媒体特征取值
 
-- 采用需求文档与 v2 接入文档一致的 `none | frosted | glass`（不采纳 09-03 会议记录转写中的 `glossity`）
+- 采用需求文档与 v2 接入文档一致的 `none | frosted | glass`（不采纳 09-03 会议记录转写中的 `glossity`），小写精确匹配（见 D7）
 - 与其他媒体特征一致，不绑定平台版本门槛（旧引擎不匹配条件即等价默认 `none`）
+
+### D7. W3C 对齐与扩展边界
+
+`prefers-material` 是**基于 W3C Media Queries Level 5 惯例的平台扩展特性**（非标准特性），对齐与差异如下：
+
+- **对齐**：`prefers-*` 命名、离散型特征、等值语法 `(feature: value)`、`and` 组合；最近似的标准特征是 MQ5 的 `prefers-reduced-transparency`（`no-preference | reduce`，无障碍偏好），二者语义互补
+- **有意差异**：
+  - 中性值用 `none`（材质关闭/设备不支持，系统状态）而非标准的 `no-preference`（用户无偏好）
+  - 取值**小写精确匹配**：W3C 媒体查询为 ASCII 大小写不敏感（MQ3），本仓库所有既有媒体特征均为小写精确匹配，本期保持一致（`Glass` 会 WARN 并丢弃规则）
+  - 不支持布尔上下文 `(prefers-material)`（MQ4 允许），与既有特征一致
+  - 未知媒体特征在 W3C 语义下等价 `not all`（false），本工具链为「编译期丢弃 + WARN」，结果等效并额外提供开发期提示
+  - 不支持 MQ5 的 `@custom-media`
+- **扩展风险**：无前缀的自定义特征存在与未来标准特性命名/语义冲突的可能；缓解：保持引擎与工具链契约稳定，标准变化时评估迁移（前缀或映射）
+- `backgroundType` 与背景规范校验属于**平台私有扩展**，与 W3C 无关，仅在 beta/私有规范范围内生效
 
 ## Risks / Trade-offs
 
@@ -71,6 +91,8 @@
 - [无源码行号，开发者定位成本略高] → 消息携带卡片 key、文件路径、选择器与色值；后续可按 D1 备选升级
 - [规则过严可能对存量卡片产生大量 ERROR] → 未声明 `backgroundType` 仅 INFO；ERROR 不阻塞出包；可经 `disabledRules`/`rules` 裁剪
 - [`solid` 深色适配缺失的级别存在文档冲突] → 默认 ERROR 但可配置；如平台评审改为 warning，仅调整规则集
+- [无前缀自定义特征可能与未来 W3C 标准冲突] → 记录于 D7；保持引擎与工具链契约稳定，标准变化时评估前缀/映射迁移
+- [严格小写与 W3C 大小写不敏感不一致] → 与既有媒体特征保持一致；未来如需放宽，应对全部特征统一归一化
 - [beta 分支与上游 main 分叉] → OpenSpec 产物与实现均在 fork/beta 分支管理，向上游提交时不含 OpenSpec 目录与版本号改动
 
 ## Migration Plan
@@ -84,3 +106,4 @@
 - `solid` 缺少深色适配最终按 ERROR 还是 WARN（需求文档表格 vs 验证要点 #12），待与平台/测试对齐
 - 校验范围是否从轻卡扩展到 JS 卡（需求文档措辞为「卡片」，09-16 会议为「轻卡」）
 - 是否/何时将 OpenSpec 流程与校验插件推进上游 main
+- 是否在未来统一支持媒体特征布尔上下文与大小写归一化（涉及全部既有特征，需与引擎侧对齐）
