@@ -45,6 +45,7 @@ const featureValidatorMap = {
   'min-device-width': 'number',
   'max-device-width': 'number',
   'prefers-color-scheme': 'preferColorScheme',
+  'prefers-material': 'preferMaterial',
   scene: 'scene',
   'widget-size': 'widgetSize',
   'device-type': 'deviceType',
@@ -225,6 +226,23 @@ const featureValidator = {
           '` 的值 `' +
           value +
           '` 不正确, 必须为 `light | dark | no-preference`'
+        )
+      }
+    }
+  },
+  preferMaterial(value) {
+    const reg = /^(none|frosted|glass)$/
+    if (reg.test(value)) {
+      return { value }
+    }
+    return {
+      reason: function (feature) {
+        return (
+          'WARN: 媒体特征 `' +
+          feature +
+          '` 的值 `' +
+          value +
+          '` 不正确, 必须为 `none | frosted | glass`'
         )
       }
     }
