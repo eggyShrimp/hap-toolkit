@@ -133,7 +133,9 @@ function lsfiles(pattern = '**/{*,.*}', globopts = {}) {
   })
 }
 
-let uniqueId = process.env.JEST_WORKER_ID * 1000
+// jest 环境使用 worker id 隔离临时目录；非 jest 环境（如直接 node 脚本）回退为 0，
+// 避免 undefined * 1000 得到 NaN 导致目标目录名固定、已存在时陷入死循环
+let uniqueId = (Number(process.env.JEST_WORKER_ID) || 0) * 1000
 /**
  * 复制一份项目
  * 供测试
