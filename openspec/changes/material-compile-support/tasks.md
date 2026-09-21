@@ -24,6 +24,6 @@
 
 ## 5. 交付
 
-- [ ] 5.1 按功能拆分提交（媒体特征 / 校验插件 + 测试），不夹带版本号改动
-- [ ] 5.2 推送 fork/beta 分支并整理交付说明（OpenSpec 产物仅随 beta 分支，不进上游 PR）
+- [x] 5.1 按功能拆分提交（媒体特征 / 校验插件 + 测试），不夹带版本号改动
+- [x] 5.2 推送 fork/beta 分支并整理交付说明（OpenSpec 产物仅随 beta 分支，不进上游 PR）
 - [ ] 5.3 交付后执行 `openspec archive material-compile-support`，沉淀能力规格
