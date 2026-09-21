@@ -24,6 +24,8 @@ HyperOS 4 高级材质要求快应用轻卡适配：引擎根据 manifest 中 `b
 - `prefers-material-media-query`: 编译器识别 `prefers-material` 媒体特征并编出对应媒体条件，支持与 `prefers-color-scheme` 等特征组合
 - `lite-card-material-validation`: 轻卡背景规范的编译期校验，含 backgroundType 声明、solid/custom 背景规则、非阻塞诊断输出与可插拔规则机制
 
+> 说明：两项能力共同服务轻卡高级材质适配，但演化边界相互独立——媒体特性是编译器通用能力（后续可能独立进入上游 main），背景校验针对私有规范且规则可插拔（暂只随 beta 分支交付）。因此拆分为两个 capability，便于各自增量演进与独立归档。
+
 ### Modified Capabilities
 
 （无。本仓库尚无既有 OpenSpec 能力规格。）
