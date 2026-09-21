@@ -19,7 +19,8 @@ import {
   SourcemapFixPlugin,
   SplitChunksAdaptPlugin,
   RemoveModulesPlugin,
-  CardScriptHandlePlugin
+  CardScriptHandlePlugin,
+  MaterialValidatePlugin
 } from './plugins'
 import { genPriorities, getBabelConfigJsPath } from './common/utils'
 import { getSkeletonConfig } from './common/info'
@@ -131,6 +132,7 @@ function postHook(webpackConf, defaultsOptions, quickappConfig = {}) {
     new CardScriptHandlePlugin({ pathSrc }),
     new RemoveModulesPlugin(),
     new CardPlugin({ pathSrc }),
+    new MaterialValidatePlugin({ pathSrc }),
     // 框架Handler包装
     new HandlerPlugin({
       pathSrc: pathSrc,
