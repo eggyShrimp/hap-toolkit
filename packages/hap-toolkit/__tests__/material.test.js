@@ -16,48 +16,45 @@ describe('测试轻卡高级材质校验', () => {
   let distDir
   let stats
 
-  beforeAll(
-    async () => {
-      const testAppDir = path.resolve(__dirname, '../fixtures/app')
-      projectRoot = await copyApp(testAppDir)
-      buildDir = path.resolve(projectRoot, 'build')
-      distDir = path.resolve(projectRoot, 'dist')
+  beforeAll(async () => {
+    const testAppDir = path.resolve(__dirname, '../fixtures/app')
+    projectRoot = await copyApp(testAppDir)
+    buildDir = path.resolve(projectRoot, 'build')
+    distDir = path.resolve(projectRoot, 'dist')
 
-      // 1. CardDemo 改为轻卡 + solid，并使用低版本目标（验证不引入版本门槛）
-      const manifestPath = path.join(projectRoot, 'src/manifest.json')
-      const manifest = JSON.parse(fs.readFileSync(manifestPath).toString())
-      manifest.versionCode = 1
-      manifest.router.widgets.CardDemo.type = 'lite'
-      manifest.router.widgets.CardDemo.backgroundType = 'solid'
-      manifest.router.widgets.CardDemo.minCardPlatformVersion = 1000
-      fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2))
+    // 1. CardDemo 改为轻卡 + solid，并使用低版本目标（验证不引入版本门槛）
+    const manifestPath = path.join(projectRoot, 'src/manifest.json')
+    const manifest = JSON.parse(fs.readFileSync(manifestPath).toString())
+    manifest.versionCode = 1
+    manifest.router.widgets.CardDemo.type = 'lite'
+    manifest.router.widgets.CardDemo.backgroundType = 'solid'
+    manifest.router.widgets.CardDemo.minCardPlatformVersion = 1000
+    fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2))
 
-      // 2. 卡片样式：违规背景（非规范浅色、无深色适配）+ prefers-material 媒体条件
-      const uxPath = path.join(projectRoot, 'src/CardDemo/index.ux')
-      const ux = fs
-        .readFileSync(uxPath, 'utf8')
-        .replace(
+    // 2. 卡片样式：违规背景（非规范浅色、无深色适配）+ prefers-material 媒体条件
+    const uxPath = path.join(projectRoot, 'src/CardDemo/index.ux')
+    const ux = fs
+      .readFileSync(uxPath, 'utf8')
+      .replace(
+        '  .demo-page {',
+        [
           '  .demo-page {',
-          [
-            '  .demo-page {',
-            '    background-color: #FF0000;',
-            '  }',
-            '  @media (prefers-material: glass) {',
-            '    .demo-page {',
-            '      color: #FFFFFF;',
-            '    }',
-            '  }',
-            '  .demo-page {'
-          ].join('\n')
-        )
-      fs.writeFileSync(uxPath, ux)
+          '    background-color: #FF0000;',
+          '  }',
+          '  @media (prefers-material: glass) {',
+          '    .demo-page {',
+          '      color: #FFFFFF;',
+          '    }',
+          '  }',
+          '  .demo-page {'
+        ].join('\n')
+      )
+    fs.writeFileSync(uxPath, ux)
 
-      // 3. 编译（产物供后续断言使用）
-      const result = await compile(platform, 'prod', false, { cwd: projectRoot })
-      stats = result.stats
-    },
-    5 * 60 * 1000
-  )
+    // 3. 编译（产物供后续断言使用）
+    const result = await compile(platform, 'prod', false, { cwd: projectRoot })
+    stats = result.stats
+  }, 5 * 60 * 1000)
 
   it('违规轻卡输出材质诊断且不阻塞出包', () => {
     expect(stats.hasErrors()).toBe(false)
