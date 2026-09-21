@@ -18,8 +18,9 @@
 ## 4. 构建与冒烟验证
 
 - [x] 4.1 `npm run build` 后运行定向单测（compiler + packager 新增用例全部通过）
-- [ ] 4.2 冒烟：复制 fixtures 工程为 lite + `solid` + 违规背景，编译后确认 warnings 含 `[卡片高级材质]` 且 rpk 照常产出
-- [ ] 4.3 `npm run prettier-check` 与 `npm run lint` 通过
+- [x] 4.2 冒烟：复制 fixtures 工程为 lite + `solid` + 违规背景，编译后确认 warnings 含 `[卡片高级材质]` 且 rpk 照常产出
+- [x] 4.3 `npm run prettier-check` 与 `npm run lint` 通过（仓库既有 2 处无关文件偏差除外）
+- [x] 4.4 新增 `packages/hap-toolkit/__tests__/material.test.js` 集成测试：低版本目标仍编出 `prefers-material`、违规卡片仍出包
 
 ## 5. 交付
 
