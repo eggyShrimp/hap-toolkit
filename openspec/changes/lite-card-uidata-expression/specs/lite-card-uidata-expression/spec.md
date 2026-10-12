@@ -58,29 +58,39 @@
 - **WHEN** `uiData` 含 key `"{{ text }}"`（含嵌套层级）
 - **THEN** 编译失败并提示 key 必须为静态字符串，错误信息包含数据路径
 
-### Requirement: uiData 表达式的编译期校验
+### Requirement: uiData 表达式的静态性约束
 
-编译器 SHALL 在源码阶段校验 `uiData` 表达式：UI 线程耗时 Feature（`system.geolocation.getLocation`、`service.push.subscribe`）禁止（与模板黑名单一致，任意层级生效）；`$t` / `$tc` 允许。
+编译器 SHALL 在源码阶段（loader）校验 `uiData` 表达式：仅支持**静态系统变量引用**（如 `system.env.intentInfo`）与**表达式计算**（拼接、算术、比较、三元、逻辑、字面量、数组/对象字面量）；**禁止调用 Feature / 函数**（如 `system.xxx()`、`Math.max()`、方法调用），`$t` / `$tc` 国际化函数除外。约束在任意层级生效，错误信息包含文件与数据路径。
 
-#### Scenario: 顶层耗时 Feature
+#### Scenario: 静态系统变量引用与表达式计算通过
 
-- **WHEN** `uiData` 含 `"lat": "{{ system.geolocation.getLocation().latitude }}"`
-- **THEN** 编译失败并提示耗时 Feature 不允许出现在 uiData 表达式中（引导使用 create / update params 或 Provider 数据）
+- **WHEN** `uiData` 含 `"intentName": "{{ system.env.intentInfo.intentionProperty.name }}"`、`"balanceText": "余额 {{ system.env.intentInfo.slots.amount }} 元"`、`"tip": "{{ system.env.intentInfo.slots.amount > 0 ? '有余额' : '无余额' }}"`
+- **THEN** 正常编译（静态引用 + 拼接 / 比较 / 三元）
 
-#### Scenario: 嵌套耗时 Feature
+#### Scenario: feature 调用被拒绝
 
-- **WHEN** `uiData` 含 `"nested": { "deep": "{{ system.geolocation.getLocation() }}" }`
-- **THEN** 编译失败，错误信息包含数据路径 `nested.deep`
+- **WHEN** `uiData` 含 `"lat": "{{ system.geolocation.getLocation().latitude }}"` 或 `"a": "{{ system.package.hasInstalled({ package: 'x' }).result }}"`
+- **THEN** 编译失败并提示「禁止调用 Feature / 函数」，信息含文件与数据路径
 
-#### Scenario: 数组内耗时 Feature
+#### Scenario: 嵌套 / 数组内 feature 调用被拒绝
 
-- **WHEN** `uiData` 含 `"list": ["a", "{{ service.push.subscribe() }}"]`
-- **THEN** 编译失败，错误信息包含数据路径 `list[1]`
+- **WHEN** `uiData` 含 `"nested": { "deep": "{{ system.device.getInfo() }}" }` 或 `"list": ["a", "{{ service.push.subscribe() }}"]`
+- **THEN** 编译失败，错误信息包含数据路径 `nested.deep` / `list[1]`
+
+#### Scenario: 普通函数 / 方法调用被拒绝
+
+- **WHEN** `uiData` 含 `"a": "{{ Math.max(1, 2) }}"` 或 `"b": "{{ '1.00'.split('.')[0] }}"`
+- **THEN** 编译失败（仅静态引用与计算允许）
 
 #### Scenario: 国际化函数放行
 
-- **WHEN** `uiData` 含 `"name": "{{ $t('card.title') }}"`
-- **THEN** 正常编译（`$t` / `$tc` 属于引擎白名单函数）
+- **WHEN** `uiData` 含 `"name": "{{ $t('card.intentName') }}"` 或 `"count": "{{ $tc('card.count', 2) }}"`
+- **THEN** 正常编译（`$t` / `$tc` 属于调用白名单）
+
+#### Scenario: 表达式无法解析
+
+- **WHEN** `uiData` 含 `"a": "{{ 1 + }}"`
+- **THEN** 编译失败并提示表达式无法解析，错误信息包含数据路径
 
 ### Requirement: 兼容性与开关
 
@@ -103,12 +113,22 @@
 
 ### Requirement: 引擎求值契约
 
-工具链产物 SHALL 与卡片引擎求值契约一致，并通过真机验收：任意层级的标记按契约求值；默认值在 Provider 数据返回前渲染；Provider / URI / 缓存数据可覆盖表达式求值结果；标记字段不进入最终 data context。
+工具链产物 SHALL 与卡片引擎求值契约一致，并通过真机验收：任意层级的标记按契约求值；表达式**仅在卡片创建时求值一次**（不随数据刷新重算）；默认值在 Provider 数据返回前渲染；Provider / URI / 缓存数据可覆盖表达式求值结果；标记字段不进入最终 data context。
 
 #### Scenario: 动态默认值首屏渲染
 
 - **WHEN** `uiData` 含 `"hour": "{{ system.time.hour }}"`，Provider 未返回数据
 - **THEN** 首屏渲染出求值结果（非 `{{...}}` 字面量）
+
+#### Scenario: 意图参数映射（方案二）
+
+- **WHEN** `uiData` 含 `"intentName": "{{ system.env.intentInfo.intentionProperty.name }}"`、`"company": "{{ system.env.intentInfo.slots.communicationCompanyName }}"`
+- **THEN** 卡片创建时求值一次，自有变量被赋值为意图数据；模板引用 `{{ intentName }}` 正常渲染
+
+#### Scenario: 表达式不随刷新重算
+
+- **WHEN** 卡片创建后 Provider / 缓存返回新数据
+- **THEN** 仅同名 key 被覆盖，uiData 表达式不重新求值
 
 #### Scenario: 嵌套 / 数组标记求值
 
