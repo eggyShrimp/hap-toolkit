@@ -8,6 +8,7 @@ import parse5 from 'parse5'
 import templater from './template'
 import actioner from './actions'
 import lifecycler from './lifecycle'
+import dataParser from './data'
 import styler from './style'
 import scripter from './script'
 import { serialize } from './utils'
@@ -180,6 +181,17 @@ function parseLifecycle(jsonObj) {
   return { parsed }
 }
 
+/**
+ * 解析轻卡 <data> 块中的 uiData
+ * @param {Object} jsonObj - uiData对象
+ * @returns {Object}
+ */
+function parseData(jsonObj) {
+  const { jsonData } = dataParser.parse(jsonObj)
+  const parsed = JSON.stringify(jsonData)
+  return { parsed }
+}
+
 export {
   parseFragmentsWithCache,
   parseTemplate,
@@ -187,6 +199,7 @@ export {
   parseScript,
   parseActions,
   parseLifecycle,
+  parseData,
   serialize
 }
 export { ENTRY_TYPE, FRAG_TYPE, isEmptyObject } from './utils'

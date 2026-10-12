@@ -8,6 +8,7 @@ import { colorconsole, extend } from '@hap-toolkit/shared-utils'
 import exp from './exp'
 import styler from '../style'
 import checkModel from './model'
+import { findForbiddenFeature } from '../common/forbidden-feature'
 import {
   fileExists,
   resolvePath,
@@ -1954,20 +1955,7 @@ function checkCustomDirective(name, value, output, node, options) {
 
 // 耗时 Feature 黑名单：这些 Feature 在 UI 线程同步执行会阻塞渲染，
 // 禁止出现在模板表达式中（允许出现在 lifecycle params / action params 中）
-const FORBIDDEN_TEMPLATE_FEATURES = ['system.geolocation.getLocation', 'service.push.subscribe']
-
-// 为每个黑名单 Feature 构建匹配「方法调用」的正则（允许任意参数、段间空白）
-const FORBIDDEN_FEATURE_MATCHERS = FORBIDDEN_TEMPLATE_FEATURES.map((feature) => {
-  const escaped = feature
-    .split('.')
-    .map((seg) => seg.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-    .join('\\s*\\.\\s*')
-  return {
-    feature,
-    // 前置一个非标识符/非点的边界，避免误匹配 foo.system.geolocation... 之类的其它路径
-    re: new RegExp('(?:^|[^\\w$.])' + escaped + '\\s*\\(')
-  }
-})
+// 名单与匹配规则见 ../common/forbidden-feature.js（uiData 校验共用同一份）
 
 /**
  * 校验模板表达式中是否使用了耗时 Feature（编译期护栏）
@@ -1982,19 +1970,17 @@ function checkForbiddenFeature(value, locationInfo, options) {
   if (!value || typeof value !== 'string') return
   if (!exp.isExpr(value)) return
 
-  for (let i = 0; i < FORBIDDEN_FEATURE_MATCHERS.length; i++) {
-    const { feature, re } = FORBIDDEN_FEATURE_MATCHERS[i]
-    if (re.test(value)) {
-      const err = new Error(`耗时 Feature "${feature}" 不允许在模板表达式中使用`)
-      err.isForbiddenFeatureError = true
-      err.feature = feature
-      err.expression = value.trim()
-      if (locationInfo) {
-        err.line = locationInfo.line
-        err.column = locationInfo.column
-      }
-      throw err
+  const feature = findForbiddenFeature(value)
+  if (feature) {
+    const err = new Error(`耗时 Feature "${feature}" 不允许在模板表达式中使用`)
+    err.isForbiddenFeatureError = true
+    err.feature = feature
+    err.expression = value.trim()
+    if (locationInfo) {
+      err.line = locationInfo.line
+      err.column = locationInfo.column
     }
+    throw err
   }
 }
 
