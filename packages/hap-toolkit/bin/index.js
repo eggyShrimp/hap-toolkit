@@ -62,6 +62,7 @@ program
   .option('--include-dsl-from-lib', 'bundle dsl to rpk')
   .option('--match-sourcemap', 'match sourcemap')
   .option('--enable-extract-css', 'extract css to json')
+  .option('--enable-ui-data-expression', 'compile expressions in lite card uiData')
   .option(
     '--split-chunks-mode <value>',
     'extract js module to single files',
@@ -144,6 +145,7 @@ program
   .option('--include-dsl-from-lib', 'bundle dsl to rpk')
   .option('--match-sourcemap', 'match sourcemap')
   .option('--enable-extract-css', 'extract css to json')
+  .option('--enable-ui-data-expression', 'compile expressions in lite card uiData')
   .option(
     '--split-chunks-mode <value>',
     'extract js module to single files',
@@ -186,6 +188,7 @@ program
   .option('--include-dsl-from-lib', 'bundle dsl to rpk')
   .option('--match-sourcemap', 'match sourcemap')
   .option('--enable-extract-css', 'extract css to json')
+  .option('--enable-ui-data-expression', 'compile expressions in lite card uiData')
   .option(
     '--split-chunks-mode <value>',
     'extract js module to single files',

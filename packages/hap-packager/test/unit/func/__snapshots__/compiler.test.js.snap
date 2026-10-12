@@ -73,3 +73,75 @@ Object {
   "staticVal": "plain-string",
 }
 `;
+
+exports[`轻卡 uiData 表达式编译 开关开启时任意层级的表达式编译为标记，并保留原字面量 1`] = `
+Object {
+  "#device": Array [
+    ".",
+    Array [
+      ".",
+      Array [
+        "$",
+        "system",
+      ],
+      "device",
+    ],
+    "DEVICE_TYPE",
+  ],
+  "#title": Array [
+    "+",
+    Array [
+      "+",
+      "今日 ",
+      Array [
+        "$",
+        "count",
+      ],
+    ],
+    " 条",
+  ],
+  "$device": "system.device.DEVICE_TYPE",
+  "$title": "今日 {{ count }} 条",
+  "count": 1,
+  "device": "{{ system.device.DEVICE_TYPE }}",
+  "nested": Object {
+    "#deep": Array [
+      "+",
+      1,
+      2,
+    ],
+    "$deep": 3,
+    "deep": "{{ 1 + 2 }}",
+    "list": Array [
+      "a",
+      Object {
+        "#": Array [
+          "$",
+          "count",
+        ],
+        "$": "count",
+      },
+    ],
+    "objs": Array [
+      Object {
+        "#label": Array [
+          ".",
+          Array [
+            ".",
+            Array [
+              "$",
+              "system",
+            ],
+            "device",
+          ],
+          "DEVICE_TYPE",
+        ],
+        "$label": "system.device.DEVICE_TYPE",
+        "label": "{{ system.device.DEVICE_TYPE }}",
+      },
+    ],
+  },
+  "text": "欢迎使用快应用卡片",
+  "title": "今日 {{ count }} 条",
+}
+`;

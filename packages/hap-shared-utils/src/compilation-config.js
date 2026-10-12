@@ -82,6 +82,8 @@ const compileOptionsObject = {
   enableE2e: false,
   // 是否启用代码覆盖率检查
   enableIstanbul: false,
+  // 是否编译轻卡 uiData 中的表达式（默认关闭，待卡片引擎求值契约确认后开启）
+  enableUiDataExpression: false,
   // 抽取公共JS的配置
   splitChunksMode: compileOptionsMeta.splitChunksModeEnum.REDUNDANCY,
   // 是否启用日志诊断功能
