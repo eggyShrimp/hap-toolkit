@@ -42,7 +42,9 @@ const LITE_CARD_UX = `<!--
       "deep": "{{ 1 + 2 }}",
       "list": ["a", "{{ count }}"],
       "objs": [{ "label": "{{ system.device.DEVICE_TYPE }}" }]
-    }
+    },
+    "intentName": "{{ system.env.intentInfo.intentionProperty.name }}",
+    "balanceText": "余额 {{ system.env.intentInfo.slots.amount }} 元"
   },
   "actions": {
     "onTap": {
@@ -105,6 +107,7 @@ describe('测试轻卡 uiData 表达式编译', () => {
       expect(data.title).toBe('今日 {{ count }} 条')
       expect(data.nested.deep).toBe('{{ 1 + 2 }}')
       expect(data.nested.list[1]).toBe('{{ count }}')
+      expect(data.intentName).toBe('{{ system.env.intentInfo.intentionProperty.name }}')
       expect(data['#des']).toBeUndefined()
       expect(data['$des']).toBeUndefined()
       expect(data.nested['#deep']).toBeUndefined()
@@ -145,6 +148,11 @@ describe('测试轻卡 uiData 表达式编译', () => {
       // 数组内对象的表达式同样编译
       expect(data.nested.objs[0].label).toBe('{{ system.device.DEVICE_TYPE }}')
       expect(Array.isArray(data.nested.objs[0]['#label'])).toBe(true)
+      // 意图参数（方案2）：静态系统变量 system.env.intentInfo 映射到自有变量
+      expect(data.intentName).toBe('{{ system.env.intentInfo.intentionProperty.name }}')
+      expect(Array.isArray(data['#intentName'])).toBe(true)
+      expect(data['#balanceText'][0]).toBe('+')
+      expect(data['$balanceText']).toBe('余额 {{ system.env.intentInfo.slots.amount }} 元')
     },
     5 * 60 * 1000
   )
@@ -169,6 +177,34 @@ describe('测试轻卡 uiData 表达式编译', () => {
         expect(errors).toContain('CardDemo/index.ux')
         expect(errors).toContain('nested.$name')
         expect(errors).toContain('不能以 “$” 或 “#” 开头')
+      } finally {
+        fs.writeFileSync(uxPath, source)
+      }
+    },
+    5 * 60 * 1000
+  )
+
+  it(
+    '非法写法：Feature / 函数调用编译失败（仅允许静态系统变量引用与计算）',
+    async () => {
+      const source = fs.readFileSync(uxPath, 'utf8')
+      fs.writeFileSync(
+        uxPath,
+        source.replace(
+          '"name": "静态对象"',
+          '"name": "{{ system.package.hasInstalled({ package: \'com.meituan\' }).result }}"'
+        )
+      )
+      try {
+        const stats = await compileCard({ enableUiDataExpression: true })
+        expect(stats.hasErrors()).toBe(true)
+
+        const errors = (stats.compilation.errors || [])
+          .map((item) => item.message || String(item))
+          .join('\n')
+        expect(errors).toContain('CardDemo/index.ux')
+        expect(errors).toContain('禁止调用 Feature / 函数')
+        expect(errors).toContain('system.env.intentInfo')
       } finally {
         fs.writeFileSync(uxPath, source)
       }

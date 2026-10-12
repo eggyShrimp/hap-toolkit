@@ -6,19 +6,25 @@
 const { parseData } = require('../../../lib')
 
 describe('compiler data uiData 校验', () => {
-  it('静态值与任意层级的字符串表达式均通过', () => {
+  it('静态值、静态系统变量引用与表达式计算均通过（任意层级）', () => {
     const uiData = {
       text: '欢迎使用快应用卡片',
-      des: '{{ system.device.DEVICE_TYPE }}',
-      title: '今日 {{ count }} 条',
+      intentName: '{{ system.env.intentInfo.intentionProperty.name }}',
+      company: '{{ system.env.intentInfo.slots.communicationCompanyName }}',
+      balance: '{{ system.env.intentInfo.slots.amount }}',
+      balanceText: '余额 {{ system.env.intentInfo.slots.amount }} 元',
+      device: '{{ system.device.DEVICE_TYPE }}',
+      tip: "{{ system.env.intentInfo.slots.amount > 0 ? '有余额' : '无余额' }}",
+      title: "{{ $t('card.title') }}",
+      countText: "{{ $tc('card.count', 2) }}",
       count: 1,
       flag: true,
       empty: null,
       nested: {
         name: 'a',
         deep: '{{ 1 + 2 }}',
-        list: [1, 2, '{{ count }}'],
-        objs: [{ label: '{{ system.device.DEVICE_TYPE }}' }]
+        list: [1, 2, '{{ system.env.intentInfo.slots.amount }}'],
+        objs: [{ label: '{{ system.env.intentInfo.intentionProperty.name }}' }]
       }
     }
 
@@ -43,31 +49,33 @@ describe('compiler data uiData 校验', () => {
     expect(() => parseData({ nested: { '{{ text }}': 'x' } })).toThrow('nested.{{ text }}')
   })
 
-  it('耗时 Feature 不允许出现在 uiData 表达式中，任意层级生效', () => {
+  it('禁止调用 Feature / 函数（system.xxx 调用），任意层级生效', () => {
     expect(() => parseData({ lat: '{{ system.geolocation.getLocation().latitude }}' })).toThrow(
-      '耗时 Feature "system.geolocation.getLocation"'
+      '禁止调用 Feature / 函数'
     )
-    expect(() => parseData({ token: '{{ service.push.subscribe() }}' })).toThrow(
-      'service.push.subscribe'
-    )
-    expect(() => parseData({ nested: { deep: '{{ system.geolocation.getLocation() }}' } })).toThrow(
+    expect(() =>
+      parseData({ a: '{{ system.package.hasInstalled({ package: "com.meituan" }).result }}' })
+    ).toThrow('仅支持静态系统变量引用')
+    expect(() => parseData({ nested: { deep: '{{ system.device.getInfo() }}' } })).toThrow(
       'nested.deep'
     )
     expect(() => parseData({ list: ['a', '{{ service.push.subscribe() }}'] })).toThrow('list[1]')
+    // 非 feature 的普通函数 / 方法调用同样禁止
+    expect(() => parseData({ a: '{{ Math.max(1, 2) }}' })).toThrow('禁止调用 Feature / 函数')
+    expect(() => parseData({ a: '{{ "1.00".split(".")[0] }}' })).toThrow('禁止调用 Feature / 函数')
   })
 
-  it('非耗时 Feature 与 $t / $tc 放行', () => {
+  it('$t / $tc 国际化函数放行', () => {
     expect(() =>
       parseData({
-        device: '{{ system.device.DEVICE_TYPE }}',
-        name: "{{ $t('card.title') }}",
-        count: "{{ $tc('card.count', 2) }}",
-        nested: { deep: '{{ system.package.hasInstalled({ package: "com.meituan" }).result }}' }
+        name: "{{ $t('card.intentName') }}",
+        count: "{{ $tc('card.count', 2) }}"
       })
     ).not.toThrow()
   })
 
-  it('相似但不同路径（foo.system.geolocation.getLocation）不误报', () => {
-    expect(() => parseData({ a: '{{ foo.system.geolocation.getLocation() }}' })).not.toThrow()
+  it('表达式无法解析时报错，且包含数据路径', () => {
+    expect(() => parseData({ a: '{{ 1 + }}' })).toThrow('表达式无法解析')
+    expect(() => parseData({ nested: { deep: '{{ 1 + }}' } })).toThrow('nested.deep')
   })
 })
