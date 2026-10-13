@@ -22,6 +22,7 @@
     "lib/**/*.js"
   ],
   "dependencies": {
+    "@aiot-toolkit/card-expression": "^1.0.15",
     "@hap-toolkit/shared-utils": "2.0.9-beta.3",
     "@jayfate/path": "^0.0.13",
     "css": "^2.2.4",

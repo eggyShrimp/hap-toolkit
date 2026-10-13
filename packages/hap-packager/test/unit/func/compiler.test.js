@@ -5,6 +5,7 @@
 
 const { replaceModuleImport } = require('@hap-toolkit/compiler').scripter
 const { parseLifecycle, parseTemplate } = require('@hap-toolkit/compiler')
+const { mergeCompileOptionsObject } = require('@hap-toolkit/shared-utils')
 const { postHandleLiteCardRes } = require('../../../lib/post-handler/lite-card-post')
 
 describe('compile functions', () => {
@@ -181,5 +182,122 @@ describe('轻卡模板耗时 Feature 编译期校验', () => {
     expect(() => {
       parseLifecycle({ params: { lat: '{{ system.geolocation.getLocation().latitude }}' } })
     }).not.toThrow()
+  })
+})
+
+/**
+ * 轻卡 uiData 表达式编译（开关控制）
+ * <data>.uiData 任意层级的字符串值中的 {{ expr }} 编译为卡片表达式标记：
+ * - 对象 key：保留原字面量，追加 #key(AST) + $key(原文)
+ * - 数组元素：替换为 { "#": AST, "$": 原文 } 标记对象
+ * 编译由 enableUiDataExpression 开关控制（默认关闭）。
+ */
+describe('轻卡 uiData 表达式编译', () => {
+  afterEach(() => {
+    mergeCompileOptionsObject({ enableUiDataExpression: false })
+  })
+
+  it('开关关闭时 uiData 不编译（与改造前一致）', () => {
+    const liteCardRes = {
+      '#entry': {
+        template: { type: 'div', children: [] },
+        data: { des: '{{ system.device.DEVICE_TYPE }}', nested: { deep: '{{ 1 + 2 }}' } }
+      }
+    }
+
+    const res = postHandleLiteCardRes(liteCardRes)
+    expect(res['#entry'].data).toEqual({
+      des: '{{ system.device.DEVICE_TYPE }}',
+      nested: { deep: '{{ 1 + 2 }}' }
+    })
+  })
+
+  it('开关开启时任意层级的表达式编译为标记，并保留原字面量', () => {
+    mergeCompileOptionsObject({ enableUiDataExpression: true })
+    const liteCardRes = {
+      '#entry': {
+        template: { type: 'div', children: [] },
+        data: {
+          text: '欢迎使用快应用卡片',
+          device: '{{ system.device.DEVICE_TYPE }}',
+          title: '今日 {{ count }} 条',
+          count: 1,
+          nested: {
+            deep: '{{ 1 + 2 }}',
+            list: ['a', '{{ count }}'],
+            objs: [{ label: '{{ system.device.DEVICE_TYPE }}' }]
+          }
+        }
+      }
+    }
+
+    const res = postHandleLiteCardRes(liteCardRes)
+    const data = res['#entry'].data
+
+    // 静态值保持原样，不产生标记字段
+    expect(data.text).toBe('欢迎使用快应用卡片')
+    expect(data.count).toBe(1)
+    expect(data['#text']).toBeUndefined()
+
+    // 对象 key：表达式编译为 #key(AST) + $key(原文)，并保留原 key 字面量
+    expect(data.device).toBe('{{ system.device.DEVICE_TYPE }}')
+    expect(Array.isArray(data['#device'])).toBe(true)
+    expect(data['#device'][0]).toBe('.')
+    expect(data['$device']).toBe('system.device.DEVICE_TYPE')
+
+    // 字符串混排编译为拼接 AST
+    expect(data['#title'][0]).toBe('+')
+    expect(data['$title']).toBe('今日 {{ count }} 条')
+
+    // 嵌套对象：同级追加标记，原字面量保留
+    expect(data.nested.deep).toBe('{{ 1 + 2 }}')
+    expect(data.nested['#deep']).toEqual(['+', 1, 2])
+    // $key 为快捷值：常量表达式取求值结果（与 actions params 一致）
+    expect(data.nested['$deep']).toBe(3)
+
+    // 数组元素：替换为 { "#", "$" } 标记对象
+    expect(data.nested.list[0]).toBe('a')
+    expect(data.nested.list[1]['#']).toEqual(['$', 'count'])
+    expect(data.nested.list[1]['$']).toBe('count')
+
+    // 数组内对象的表达式同样编译
+    expect(data.nested.objs[0].label).toBe('{{ system.device.DEVICE_TYPE }}')
+    expect(Array.isArray(data.nested.objs[0]['#label'])).toBe(true)
+
+    // 记录完整编译产物，锁定标记格式
+    expect(data).toMatchSnapshot()
+  })
+
+  it('表达式无法编译时报错并包含卡片与数据路径', () => {
+    mergeCompileOptionsObject({ enableUiDataExpression: true })
+    const liteCardRes = {
+      CardDemo: {
+        template: { type: 'div', children: [] },
+        data: { nested: { deep: '{{ 1 + }}' } }
+      }
+    }
+
+    expect(() => postHandleLiteCardRes(liteCardRes)).toThrow(
+      /CardDemo[\s\S]*nested\.deep[\s\S]*表达式编译失败/
+    )
+  })
+
+  it('uiData 编译不影响 template / actions / create 的既有行为', () => {
+    mergeCompileOptionsObject({ enableUiDataExpression: true })
+    const liteCardRes = {
+      '#entry': {
+        template: { type: 'div', children: [] },
+        data: { t: '{{ system.device.DEVICE_TYPE }}' },
+        actions: {
+          onTap: { type: 'message', params: { d: '{{ system.device.DEVICE_TYPE }}' } }
+        },
+        create: { params: { a: '{{ system.device.DEVICE_TYPE }}' } }
+      }
+    }
+
+    const res = postHandleLiteCardRes(liteCardRes)
+    expect(Array.isArray(res['#entry'].data['#t'])).toBe(true)
+    expect(Array.isArray(res['#entry'].actions.onTap.params['#d'])).toBe(true)
+    expect(Array.isArray(res['#entry'].create.params['#a'])).toBe(true)
   })
 })

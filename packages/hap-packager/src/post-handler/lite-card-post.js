@@ -4,6 +4,7 @@
  */
 
 import { templateValueToCardCode } from '@aiot-toolkit/card-expression'
+import { compileOptionsObject } from '@hap-toolkit/shared-utils'
 import { isExpr, isObject, isConstObjOrArray, isSimpleArr, isSimplePath } from './utils'
 import { templater } from '@hap-toolkit/compiler'
 const { validator } = templater
@@ -12,6 +13,8 @@ const TYPE_IMPORT = 'import'
 // 需要进行后处理的模块key
 const TEMPLATE_KEY = 'template'
 const ACTIONS_KEY = 'actions'
+// uiData（模板默认值 / 数据 schema）
+const DATA_KEY = 'data'
 // 生命周期钩子（编译产物中为 #entry 顶层字段）
 const LIFECYCLE_HOOK_KEYS = ['create', 'update']
 
@@ -112,6 +115,60 @@ function markParams(actions) {
       actions.params['#' + key] = prefixExpr
     }
   })
+}
+
+// 处理 uiData（#entry 顶层 data 字段）中的表达式，支持任意层级结构
+// - 对象 key：保留原字面量，追加 $key（原文/快捷值）与 #key（AST），与 actions/create params 同构
+// - 数组元素：无法追加兄弟字段，表达式元素替换为标记对象 { "#": AST, "$": 原文 }
+function postHandleData(data, compName) {
+  if (!isObject(data)) return
+
+  const descPrefix = `卡片 ${compName} 的 <data> uiData 中`
+  markDataObject(data, '', descPrefix)
+}
+
+// 对象层级：字符串表达式值追加 $key / #key 兄弟字段（保留原字面量，供旧引擎降级）
+function markDataObject(obj, parentPath, descPrefix) {
+  Object.keys(obj).forEach((key) => {
+    const path = parentPath ? `${parentPath}.${key}` : key
+    const value = obj[key]
+
+    if (typeof value === 'string' && isExpr(value)) {
+      const { rawExpr, prefixExpr } = compileDataExpr(value, `${descPrefix} "${path}"`)
+      obj['$' + key] = rawExpr
+      obj['#' + key] = prefixExpr
+      return
+    }
+
+    obj[key] = markDataValue(value, path, descPrefix)
+  })
+}
+
+// 值层级：数组递归；数组内的表达式元素替换为 { "#", "$" } 标记对象
+function markDataValue(value, path, descPrefix) {
+  if (Array.isArray(value)) {
+    return value.map((item, index) => markDataValue(item, `${path}[${index}]`, descPrefix))
+  }
+
+  if (isObject(value)) {
+    markDataObject(value, path, descPrefix)
+    return value
+  }
+
+  if (typeof value === 'string' && isExpr(value)) {
+    const { rawExpr, prefixExpr } = compileDataExpr(value, `${descPrefix} "${path}"`)
+    return { '#': prefixExpr, $: rawExpr }
+  }
+
+  return value
+}
+
+function compileDataExpr(value, desc) {
+  try {
+    return getPrefixExpr(value)
+  } catch (e) {
+    throw new Error(`${desc} 的表达式编译失败：${e.message}`)
+  }
 }
 
 // 处理 template 中的字段，增加标记和处理表达式
@@ -384,6 +441,14 @@ export function postHandleLiteCardRes(liteCardRes) {
       Object.keys(actionEvents).forEach((eventName) => {
         postHandleActions(actionEvents[eventName])
       })
+    }
+  }
+
+  // uiData 表达式编译（开关控制，默认关闭；引擎契约确认后翻转默认值）
+  if (compileOptionsObject.enableUiDataExpression) {
+    for (let i = 0; i < uxList.length; i++) {
+      const compName = uxList[i]
+      postHandleData(liteCardRes[compName][DATA_KEY], compName)
     }
   }
 
