@@ -1490,7 +1490,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/style-loader.j
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/AllowedKeywords/testallowedkeywords.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/AllowedKeywords/testallowedkeywords.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -1667,7 +1667,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Aria/testaria.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Aria/testaria.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -1700,7 +1700,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Block/testblock.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Block/testblock.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -1760,7 +1760,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Component/index.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Component/index.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -1797,7 +1797,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Component/part1.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Component/part1.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -1814,7 +1814,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Component/part2.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Component/part2.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -1831,7 +1831,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/ComponentName/header.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/ComponentName/header.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -1854,7 +1854,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/ComponentName/testcomponentname.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/ComponentName/testcomponentname.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -1879,7 +1879,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/CustomDirectives/part1.ux?uxType=comp& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/CustomDirectives/part1.ux?uxType=comp 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -1900,7 +1900,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/CustomDirectives/part1.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/CustomDirectives/part1.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -1956,7 +1956,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/DataBinding/testdatabinding.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/DataBinding/testdatabinding.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -1997,7 +1997,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/EventBinding/testeventbinding.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/EventBinding/testeventbinding.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -2034,7 +2034,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Expression/testexpression.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Expression/testexpression.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {
@@ -2102,7 +2102,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Filter/testfilter.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Filter/testfilter.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -2132,7 +2132,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/For/testfor.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/For/testfor.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -2254,7 +2254,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/If/testif.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/If/testif.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -2334,21 +2334,21 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/ImportFeature/testimportfeature.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/ImportFeature/testimportfeature.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {}
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/ImportStyle/testimportstyle.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/ImportStyle/testimportstyle.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {}
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/ImportTemplate/comp.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/ImportTemplate/comp.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"text\\",
   \\"attr\\": {
@@ -2357,7 +2357,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/ImportTemplate/testimporttemplate.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/ImportTemplate/testimporttemplate.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -2375,7 +2375,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/ImportTemplateAlias/comp.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/ImportTemplateAlias/comp.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"text\\",
   \\"attr\\": {
@@ -2384,7 +2384,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/ImportTemplateAlias/testimporttemplatealias.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/ImportTemplateAlias/testimporttemplatealias.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -2432,7 +2432,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/InlineStyle/testinlinestyle.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/InlineStyle/testinlinestyle.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -2506,7 +2506,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/JSX/testjsx.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/JSX/testjsx.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -2539,7 +2539,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/List/testlist.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/List/testlist.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -2650,7 +2650,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/NestedIf/testnestedif.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/NestedIf/testnestedif.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -2910,14 +2910,14 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/PlainText/testplaintext.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/PlainText/testplaintext.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"template\\",
   \\"attr\\": {}
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Refresh/testrefresh.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Refresh/testrefresh.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -3061,7 +3061,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/RegExp/testregexp.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/RegExp/testregexp.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {
@@ -3074,7 +3074,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/RegExpText/testregexp.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/RegExpText/testregexp.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -3122,7 +3122,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Show/testshow.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Show/testshow.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -3141,7 +3141,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Simple/testsimple.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Simple/testsimple.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -3151,7 +3151,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Slot/comp1.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Slot/comp1.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -3184,7 +3184,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Slot/comp2.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Slot/comp2.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -3211,7 +3211,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Slot/comp3.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Slot/comp3.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -3258,7 +3258,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Slot/testslot.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Slot/testslot.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -3314,7 +3314,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Tabs/testtabs.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Tabs/testtabs.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -3546,7 +3546,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/TemplateLiterals/testtemplateliterals.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/TemplateLiterals/testtemplateliterals.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -3588,7 +3588,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/TextContent/testtextcontent.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/TextContent/testtextcontent.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -4134,7 +4134,7 @@ exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loade
 }"
 `;
 
-exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Xml/testxml.ux?uxType=page& 1`] = `
+exports[`Template 编译测试 ux templates: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestTemplate/Xml/testxml.ux?uxType=page 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -4211,7 +4211,7 @@ $app_define$('@app-component/sub-component', [], function($app_require$, $app_ex
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./part1.ux?uxType=comp&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./part1.ux?uxType=comp\\")
 });
 ;"
 `;
@@ -4224,7 +4224,7 @@ $app_define$('@app-component/testallowedkeywords', [], function($app_require$, $
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testallowedkeywords.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testallowedkeywords.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testallowedkeywords.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testallowedkeywords',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4238,7 +4238,7 @@ $app_define$('@app-component/testaria', [], function($app_require$, $app_exports
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testaria.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testaria.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testaria.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testaria',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4252,7 +4252,7 @@ $app_define$('@app-component/testblock', [], function($app_require$, $app_export
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testblock.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testblock.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testblock.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testblock',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4262,7 +4262,7 @@ exports[`Template 编译测试 ux templates: ./TestTemplate/Component/index.ux?u
 "
 var $app_script$ = null
 $app_define$('@app-component/index', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./index.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./index.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/index',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -4271,7 +4271,7 @@ exports[`Template 编译测试 ux templates: ./TestTemplate/Component/part1.ux?u
 "
 var $app_script$ = null
 $app_define$('@app-component/part1', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./part1.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./part1.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/part1',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -4280,7 +4280,7 @@ exports[`Template 编译测试 ux templates: ./TestTemplate/Component/part2.ux?u
 "
 var $app_script$ = null
 $app_define$('@app-component/part2', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./part2.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./part2.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/part2',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -4289,7 +4289,7 @@ exports[`Template 编译测试 ux templates: ./TestTemplate/ComponentName/header
 "
 var $app_script$ = null
 $app_define$('@app-component/header', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./header.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./header.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/header',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -4298,7 +4298,7 @@ exports[`Template 编译测试 ux templates: ./TestTemplate/ComponentName/testco
 "
 var $app_script$ = null
 $app_define$('@app-component/testcomponentname', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testcomponentname.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testcomponentname.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testcomponentname',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -4311,7 +4311,7 @@ $app_define$('@app-component/part1', [], function($app_require$, $app_exports$, 
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./part1.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./part1.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/part1',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -4337,7 +4337,7 @@ $app_define$('@app-component/testdatabinding', [], function($app_require$, $app_
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testdatabinding.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testdatabinding.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testdatabinding.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testdatabinding',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4351,7 +4351,7 @@ $app_define$('@app-component/testeventbinding', [], function($app_require$, $app
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testeventbinding.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testeventbinding.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testeventbinding.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testeventbinding',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4365,7 +4365,7 @@ $app_define$('@app-component/testexpression', [], function($app_require$, $app_e
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testexpression.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testexpression.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testexpression.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testexpression',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4379,7 +4379,7 @@ $app_define$('@app-component/testfilter', [], function($app_require$, $app_expor
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testfilter.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testfilter.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testfilter',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -4392,7 +4392,7 @@ $app_define$('@app-component/testfor', [], function($app_require$, $app_exports$
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testfor.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testfor.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testfor.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testfor',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4406,7 +4406,7 @@ $app_define$('@app-component/testif', [], function($app_require$, $app_exports$,
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testif.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testif.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testif.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testif',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4458,7 +4458,7 @@ $app_define$('@app-component/testimportfeature', [], function($app_require$, $ap
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testimportfeature.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testimportfeature.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testimportfeature.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testimportfeature',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4472,7 +4472,7 @@ $app_define$('@app-component/testimportstyle', [], function($app_require$, $app_
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testimportstyle.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testimportstyle.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testimportstyle.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testimportstyle',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4486,7 +4486,7 @@ $app_define$('@app-component/comp', [], function($app_require$, $app_exports$, $
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./comp.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./comp.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/comp',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -4499,7 +4499,7 @@ $app_define$('@app-component/testimporttemplate', [], function($app_require$, $a
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testimporttemplate.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testimporttemplate.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testimporttemplate.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testimporttemplate',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4513,7 +4513,7 @@ $app_define$('@app-component/comp', [], function($app_require$, $app_exports$, $
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./comp.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./comp.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/comp',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -4526,7 +4526,7 @@ $app_define$('@app-component/testimporttemplatealias', [], function($app_require
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testimporttemplatealias.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testimporttemplatealias.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testimporttemplatealias.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testimporttemplatealias',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4536,7 +4536,7 @@ exports[`Template 编译测试 ux templates: ./TestTemplate/InlineStyle/testinli
 "
 var $app_script$ = null
 $app_define$('@app-component/testinlinestyle', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testinlinestyle.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testinlinestyle.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testinlinestyle',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -4549,7 +4549,7 @@ $app_define$('@app-component/testjsx', [], function($app_require$, $app_exports$
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testjsx.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testjsx.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testjsx.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testjsx',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4563,7 +4563,7 @@ $app_define$('@app-component/testlist', [], function($app_require$, $app_exports
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testlist.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testlist.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testlist.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testlist',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4577,7 +4577,7 @@ $app_define$('@app-component/testnestedif', [], function($app_require$, $app_exp
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testnestedif.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testnestedif.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testnestedif.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testnestedif',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4587,7 +4587,7 @@ exports[`Template 编译测试 ux templates: ./TestTemplate/PlainText/testplaint
 "
 var $app_script$ = null
 $app_define$('@app-component/testplaintext', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testplaintext.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testplaintext.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testplaintext',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -4600,7 +4600,7 @@ $app_define$('@app-component/testrefresh', [], function($app_require$, $app_expo
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testrefresh.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testrefresh.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testrefresh.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testrefresh',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4614,7 +4614,7 @@ $app_define$('@app-component/testregexp', [], function($app_require$, $app_expor
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testregexp.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testregexp.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testregexp.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testregexp',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4628,7 +4628,7 @@ $app_define$('@app-component/testregexp', [], function($app_require$, $app_expor
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testregexp.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testregexp.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testregexp.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testregexp',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4642,7 +4642,7 @@ $app_define$('@app-component/testshow', [], function($app_require$, $app_exports
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testshow.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testshow.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testshow.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testshow',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4656,7 +4656,7 @@ $app_define$('@app-component/testsimple', [], function($app_require$, $app_expor
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testsimple.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testsimple.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testsimple.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testsimple',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4666,7 +4666,7 @@ exports[`Template 编译测试 ux templates: ./TestTemplate/Slot/comp1.ux?uxType
 "
 var $app_script$ = null
 $app_define$('@app-component/comp1', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./comp1.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./comp1.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/comp1',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -4675,7 +4675,7 @@ exports[`Template 编译测试 ux templates: ./TestTemplate/Slot/comp2.ux?uxType
 "
 var $app_script$ = null
 $app_define$('@app-component/comp2', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./comp2.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./comp2.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/comp2',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -4684,7 +4684,7 @@ exports[`Template 编译测试 ux templates: ./TestTemplate/Slot/comp3.ux?uxType
 "
 var $app_script$ = null
 $app_define$('@app-component/comp3', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./comp3.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./comp3.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/comp3',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -4697,7 +4697,7 @@ $app_define$('@app-component/testslot', [], function($app_require$, $app_exports
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testslot.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testslot.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testslot.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testslot',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4711,7 +4711,7 @@ $app_define$('@app-component/testtabs', [], function($app_require$, $app_exports
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testtabs.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testtabs.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testtabs.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testtabs',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4725,7 +4725,7 @@ $app_define$('@app-component/testtemplateliterals', [], function($app_require$, 
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testtemplateliterals.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testtemplateliterals.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../lib/loaders/style-loader.js?index=0&type=style!../../../../../lib/loaders/fragment-loader.js?index=0&type=style!./testtemplateliterals.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testtemplateliterals',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -4735,7 +4735,7 @@ exports[`Template 编译测试 ux templates: ./TestTemplate/TextContent/testtext
 "
 var $app_script$ = null
 $app_define$('@app-component/testtextcontent', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testtextcontent.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testtextcontent.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testtextcontent',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -4744,7 +4744,7 @@ exports[`Template 编译测试 ux templates: ./TestTemplate/Xml/testxml.ux?uxTyp
 "
 var $app_script$ = null
 $app_define$('@app-component/testxml', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testxml.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testxml.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/testxml',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;

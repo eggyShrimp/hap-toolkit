@@ -1,5 +1,84 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ux-loader lite card with scss style: emitted errors 1`] = `Array []`;
+
+exports[`ux-loader lite card with scss style: emitted warnings 1`] = `Array []`;
+
+exports[`ux-loader lite card with scss style: error 1`] = `null`;
+
+exports[`ux-loader lite card with scss style: source-vs-result 1`] = `
+"
+<template>
+  <div class=\\"card-wrapper\\">x</div>
+</template>
+<style lang=\\"scss\\">
+$bg: #FFFFFF;
+.card-wrapper {
+  background-color: $bg;
+}
+</style>
+<data>
+{
+  \\"val\\": 1
+}
+</data>
+      
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+$app_define$('@app-component/lite-scss', [], function($app_require$, $app_exports$, $app_module$) {
+    $app_module$.exports.template = require(\\"!../../lib/loaders/template-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=template!./lite-scss.ux?uxType=card&lite=1&cardEntry=%2FLite1&cardCtx=%7B%22version%22%3A1%2C%22backgroundType%22%3A%22solid%22%2C%22rootMeta%22%3A%7B%22classes%22%3A%5B%22card-wrapper%22%5D%2C%22id%22%3A%22%22%7D%2C%22rootStyle%22%3A%7B%7D%7D\\")
+    $app_module$.exports.style = require(\\"!../../lib/loaders/style-loader.js?index=0&type=style!../../../../node_modules/sass-loader/dist/cjs.js?sourceMap!../../lib/loaders/fragment-loader.js?index=0&type=style!./lite-scss.ux?uxType=card&styleLine=6&styleLang=scss&lite=1&cardEntry=%2FLite1&cardCtx=%7B%22version%22%3A1%2C%22backgroundType%22%3A%22solid%22%2C%22rootMeta%22%3A%7B%22classes%22%3A%5B%22card-wrapper%22%5D%2C%22id%22%3A%22%22%7D%2C%22rootStyle%22%3A%7B%7D%7D\\")
+    $app_module$.exports.uidata = require(\\"!../../lib/loaders/data-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=data!./lite-scss.ux?index=0&lite=1&cardEntry=%2FLite1&cardCtx=%7B%22version%22%3A1%2C%22backgroundType%22%3A%22solid%22%2C%22rootMeta%22%3A%7B%22classes%22%3A%5B%22card-wrapper%22%5D%2C%22id%22%3A%22%22%7D%2C%22rootStyle%22%3A%7B%7D%7D\\")
+    $app_module$.exports.actions = require(\\"!../../lib/loaders/action-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=data!./lite-scss.ux?index=0&lite=1&cardEntry=%2FLite1&cardCtx=%7B%22version%22%3A1%2C%22backgroundType%22%3A%22solid%22%2C%22rootMeta%22%3A%7B%22classes%22%3A%5B%22card-wrapper%22%5D%2C%22id%22%3A%22%22%7D%2C%22rootStyle%22%3A%7B%7D%7D\\")
+    $app_module$.exports.create = require(\\"!../../lib/loaders/create-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=data!./lite-scss.ux?index=0&lite=1&cardEntry=%2FLite1&cardCtx=%7B%22version%22%3A1%2C%22backgroundType%22%3A%22solid%22%2C%22rootMeta%22%3A%7B%22classes%22%3A%5B%22card-wrapper%22%5D%2C%22id%22%3A%22%22%7D%2C%22rootStyle%22%3A%7B%7D%7D\\")
+    $app_module$.exports.update = require(\\"!../../lib/loaders/update-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=data!./lite-scss.ux?index=0&lite=1&cardEntry=%2FLite1&cardCtx=%7B%22version%22%3A1%2C%22backgroundType%22%3A%22solid%22%2C%22rootMeta%22%3A%7B%22classes%22%3A%5B%22card-wrapper%22%5D%2C%22id%22%3A%22%22%7D%2C%22rootStyle%22%3A%7B%7D%7D\\")
+    $app_module$.exports.props = require(\\"!../../lib/loaders/props-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=data!./lite-scss.ux?index=0&lite=1&cardEntry=%2FLite1&cardCtx=%7B%22version%22%3A1%2C%22backgroundType%22%3A%22solid%22%2C%22rootMeta%22%3A%7B%22classes%22%3A%5B%22card-wrapper%22%5D%2C%22id%22%3A%22%22%7D%2C%22rootStyle%22%3A%7B%7D%7D\\")
+    $app_module$.exports.app = require(\\"!../../lib/loaders/datapp-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=data!./lite-scss.ux?index=0&lite=1&cardEntry=%2FLite1&cardCtx=%7B%22version%22%3A1%2C%22backgroundType%22%3A%22solid%22%2C%22rootMeta%22%3A%7B%22classes%22%3A%5B%22card-wrapper%22%5D%2C%22id%22%3A%22%22%7D%2C%22rootStyle%22%3A%7B%7D%7D\\")
+    $app_module$.exports.commands = require(\\"!../../lib/loaders/command-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=data!./lite-scss.ux?index=0&lite=1&cardEntry=%2FLite1&cardCtx=%7B%22version%22%3A1%2C%22backgroundType%22%3A%22solid%22%2C%22rootMeta%22%3A%7B%22classes%22%3A%5B%22card-wrapper%22%5D%2C%22id%22%3A%22%22%7D%2C%22rootStyle%22%3A%7B%7D%7D\\")
+    $app_data$($app_module$, $app_require$)
+});
+$app_bootstrap$('@app-component/lite-scss',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
+`;
+
+exports[`ux-loader lite card, no static root class: emitted errors 1`] = `Array []`;
+
+exports[`ux-loader lite card, no static root class: emitted warnings 1`] = `Array []`;
+
+exports[`ux-loader lite card, no static root class: error 1`] = `null`;
+
+exports[`ux-loader lite card, no static root class: source-vs-result 1`] = `
+"
+<template>
+  <div class=\\"{{ klass }}\\">x</div>
+</template>
+<style>
+.card {
+  background-color: #FFFFFF;
+}
+</style>
+<data>
+{
+  \\"klass\\": \\"card\\"
+}
+</data>
+      
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+$app_define$('@app-component/lite-dynamic', [], function($app_require$, $app_exports$, $app_module$) {
+    $app_module$.exports.template = require(\\"!../../lib/loaders/template-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=template!./lite-dynamic.ux?uxType=card&lite=1&cardEntry=%2FLite1\\")
+    $app_module$.exports.style = require(\\"!../../lib/loaders/style-loader.js?index=0&type=style!../../lib/loaders/fragment-loader.js?index=0&type=style!./lite-dynamic.ux?uxType=card&lite=1&cardEntry=%2FLite1\\")
+    $app_module$.exports.uidata = require(\\"!../../lib/loaders/data-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=data!./lite-dynamic.ux?index=0&lite=1&cardEntry=%2FLite1\\")
+    $app_module$.exports.actions = require(\\"!../../lib/loaders/action-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=data!./lite-dynamic.ux?index=0&lite=1&cardEntry=%2FLite1\\")
+    $app_module$.exports.create = require(\\"!../../lib/loaders/create-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=data!./lite-dynamic.ux?index=0&lite=1&cardEntry=%2FLite1\\")
+    $app_module$.exports.update = require(\\"!../../lib/loaders/update-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=data!./lite-dynamic.ux?index=0&lite=1&cardEntry=%2FLite1\\")
+    $app_module$.exports.props = require(\\"!../../lib/loaders/props-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=data!./lite-dynamic.ux?index=0&lite=1&cardEntry=%2FLite1\\")
+    $app_module$.exports.app = require(\\"!../../lib/loaders/datapp-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=data!./lite-dynamic.ux?index=0&lite=1&cardEntry=%2FLite1\\")
+    $app_module$.exports.commands = require(\\"!../../lib/loaders/command-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=data!./lite-dynamic.ux?index=0&lite=1&cardEntry=%2FLite1\\")
+    $app_data$($app_module$, $app_require$)
+});
+$app_bootstrap$('@app-component/lite-dynamic',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
+`;
+
 exports[`ux-loader normal page with style: emitted errors 1`] = `Array []`;
 
 exports[`ux-loader normal page with style: emitted warnings 1`] = `Array []`;
@@ -21,7 +100,7 @@ exports[`ux-loader normal page with style: source-vs-result 1`] = `
 
 var $app_script$ = null
 $app_define$('@app-component/page', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../lib/loaders/template-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=template!./page.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../lib/loaders/template-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=template!./page.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../lib/loaders/style-loader.js?index=0&type=style!../../lib/loaders/fragment-loader.js?index=0&type=style!./page.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/page',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -43,7 +122,7 @@ exports[`ux-loader normal page, enablePerformanceCheck: source-vs-result 1`] = `
 
 var $app_script$ = null
 $app_define$('@app-component/page', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../lib/loaders/template-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=template!./page.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../lib/loaders/template-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=template!./page.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/page',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -64,7 +143,7 @@ exports[`ux-loader normal page: source-vs-result 1`] = `
 
 var $app_script$ = null
 $app_define$('@app-component/page', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../lib/loaders/template-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=template!./page.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../lib/loaders/template-loader.js!../../lib/loaders/fragment-loader.js?index=0&type=template!./page.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/page',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;

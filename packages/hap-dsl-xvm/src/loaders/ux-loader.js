@@ -24,7 +24,8 @@ import {
   processDataAppFrag
   // end honor process frag
 } from './ux-fragment-utils'
-import { getNameByPath, print, isUXRender, FRAG_TYPE } from './common/utils'
+import { buildCardContext } from './card-context'
+import { getNameByPath, print, isUXRender } from './common/utils'
 
 const { validator } = templater
 
@@ -35,9 +36,10 @@ const { validator } = templater
  * @param name
  * @param uxType
  * @param lite 1: 轻卡; 0: 普通卡
+ * @param source - .ux 源码（片段起始行计算用）
  * @return {String}
  */
-function assemble($loader, frags, name, queryOptions) {
+function assemble($loader, frags, name, queryOptions, source) {
   const { uxType, lite } = queryOptions
   const isUseTreeShaking = !!globalConfig.useTreeShaking
   // 外部导入的组件列表
@@ -79,7 +81,8 @@ function assemble($loader, frags, name, queryOptions) {
     content += `    $app_module$.exports.style = ${processStyleFrag(
       $loader,
       frags.style,
-      queryOptions
+      queryOptions,
+      source
     )}\n`
   }
   if (lite) {
@@ -87,45 +90,38 @@ function assemble($loader, frags, name, queryOptions) {
     content += `    $app_module$.exports.uidata = ${processDataFrag(
       $loader,
       frags.data,
-      uxType,
-      FRAG_TYPE.DATA
+      queryOptions
     )}\n`
     content += `    $app_module$.exports.actions = ${processActionFrag(
       $loader,
       frags.data,
-      uxType,
-      FRAG_TYPE.ACTIONS
+      queryOptions
     )}\n`
     content += `    $app_module$.exports.create = ${processCreateFrag(
       $loader,
       frags.data,
-      uxType,
-      FRAG_TYPE.CREATE
+      queryOptions
     )}\n`
     content += `    $app_module$.exports.update = ${processUpdateFrag(
       $loader,
       frags.data,
-      uxType,
-      FRAG_TYPE.UPDATE
+      queryOptions
     )}\n`
     content += `    $app_module$.exports.props = ${processPropsFrag(
       $loader,
       frags.data,
-      uxType,
-      FRAG_TYPE.PROPS
+      queryOptions
     )}\n`
     // process honor frag
     content += `    $app_module$.exports.app = ${processDataAppFrag(
       $loader,
       frags.data,
-      uxType,
-      FRAG_TYPE.APP
+      queryOptions
     )}\n`
     content += `    $app_module$.exports.commands = ${processCommandFrag(
       $loader,
       frags.data,
-      uxType,
-      FRAG_TYPE.COMMANDS
+      queryOptions
     )}\n`
     // end process honor frag
     content += `    $app_data$($app_module$, $app_require$)\n`
@@ -191,9 +187,27 @@ export default function uxLoader(source) {
   const frags = parseFragmentsWithCache(source, resourcePath)
   print(frags)
 
+  // 轻卡高级材质：读取 manifest.backgroundType 与模板根节点信息，合成单一上下文随片段透传；
+  // 取不到（非轻卡 / 模板缺失 / 动态 class 等）时静默降级，不携带上下文
+  if (
+    queryOptions.uxType === ENTRY_TYPE.CARD &&
+    queryOptions.lite &&
+    queryOptions.cardEntry &&
+    frags.template.length
+  ) {
+    const cardCtx = buildCardContext({
+      source,
+      template: frags.template[0],
+      cardEntry: queryOptions.cardEntry
+    })
+    if (cardCtx) {
+      queryOptions.cardCtx = cardCtx
+    }
+  }
+
   parseImportList(this, frags.import)
     .then(() => {
-      return assemble(this, frags, name, queryOptions)
+      return assemble(this, frags, name, queryOptions, source)
     })
     .then((result) => {
       callback(null, result)

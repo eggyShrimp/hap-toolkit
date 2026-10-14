@@ -14,6 +14,7 @@ import {
   makeRequireString,
   getNameByPath,
   print,
+  getFragmentContentLine,
   FRAG_TYPE,
   isUXRender
 } from './common/utils'
@@ -21,6 +22,60 @@ import {
 const { validator } = templater
 // 项目目录
 const cwd = path.resolve(globalConfig.projectPath)
+
+/**
+ * 生成片段请求的公共资源查询参数（单一构造器的一部分：新增上下文参数只需改这里，
+ * 各片段自动携带，避免重复拼参时漏参静默失效）
+ *
+ * @param {Object} queryOptions - ux-loader 透传的查询上下文（含 cardCtx）
+ * @returns {String[]} 公共参数片段数组
+ */
+function buildCommonQueryParts(queryOptions = {}) {
+  const { newJSCard, lite, cardEntry, minCardRuntimeVersion, isTargetVivo, cardCtx } = queryOptions
+  const parts = []
+  if (newJSCard) {
+    parts.push(`newJSCard=${newJSCard}`)
+  }
+  if (lite) {
+    parts.push(`lite=${lite}`)
+  }
+  if (cardEntry) {
+    parts.push(`cardEntry=${encodeURIComponent(cardEntry)}`)
+  }
+  if (minCardRuntimeVersion) {
+    parts.push(`minCardRuntimeVersion=${minCardRuntimeVersion}`)
+  }
+  if (isTargetVivo) {
+    parts.push(`isTargetVivo=${isTargetVivo}`)
+  }
+  if (cardCtx) {
+    // 单一版本化上下文参数（轻卡材质校验用），取值随片段请求透传
+    parts.push(`cardCtx=${encodeURIComponent(JSON.stringify(cardCtx))}`)
+  }
+  return parts
+}
+
+/**
+ * 生成片段请求的资源查询串（不含前导 `?`）
+ *
+ * @param {String} uxType - 文件类型
+ * @param {String[]} extraParts - 片段专属参数（如 importNames、uxPath、styleLine）
+ * @param {Object} queryOptions - ux-loader 透传的查询上下文
+ * @returns {String}
+ */
+function buildFragmentQuery(uxType, extraParts, queryOptions) {
+  const parts = []
+  if (uxType) {
+    parts.push(`uxType=${uxType}`)
+  }
+  ;(extraParts || []).forEach((part) => {
+    if (part) {
+      parts.push(part)
+    }
+  })
+  parts.push(...buildCommonQueryParts(queryOptions))
+  return parts.join('&')
+}
 
 const defaultLoaders = {
   // common
@@ -227,7 +282,12 @@ function makeLoaderString(type, config, newJSCard, uxType) {
     let lang = config.lang
     if (lang && lang !== 'css') {
       loaders.push({
-        name: defaultLoaders[lang]
+        name: defaultLoaders[lang],
+        // 预处理样式（sass/less）与 devtool 解耦：始终生成 source map，
+        // 供轻卡材质校验把位置映射回源码（默认仅在 devtool 开启时生成）
+        query: {
+          sourceMap: true
+        }
       })
     }
 
@@ -341,16 +401,9 @@ function makeLoaderString(type, config, newJSCard, uxType) {
  * @returns {string}
  */
 function processImportFrag($loader, imports, importNames, queryOptions = {}) {
-  const { newJSCard, lite, cardEntry, minCardRuntimeVersion, isTargetVivo } = queryOptions
+  const { newJSCard } = queryOptions
   let retStr = ''
   if (imports.length) {
-    const newJSCardParam = newJSCard ? `&newJSCard=${newJSCard}` : ''
-    const liteParam = lite ? `&lite=${lite}` : ''
-    const cardEntryParam = cardEntry ? `&cardEntry=${cardEntry}` : ''
-    const minCardRuntimeVersionParam = minCardRuntimeVersion
-      ? `&minCardRuntimeVersion=${minCardRuntimeVersion}`
-      : ''
-    const isTargetVivoParam = isTargetVivo ? `&isTargetVivo=${isTargetVivo}` : ''
     for (let i = 0; i < imports.length; i++) {
       const imp = imports[i]
       let importSrc = imp.attrs.src
@@ -384,10 +437,11 @@ function processImportFrag($loader, imports, importNames, queryOptions = {}) {
         name: importName,
         src: importSrc
       })
+      const query = buildFragmentQuery(ENTRY_TYPE.COMP, [`name=${importName}`], queryOptions)
       let reqStr = makeRequireString(
         $loader,
         makeLoaderString(FRAG_TYPE.IMPORT, null, newJSCard),
-        `${importSrc}?uxType=${ENTRY_TYPE.COMP}&name=${importName}${newJSCardParam}${liteParam}${cardEntryParam}${minCardRuntimeVersionParam}${isTargetVivoParam}`
+        `${importSrc}?${query}`
       )
 
       if (compileOptionsObject.stats) {
@@ -411,7 +465,7 @@ function processImportFrag($loader, imports, importNames, queryOptions = {}) {
  * @param {number} lite 轻卡
  */
 function processTemplateFrag($loader, templates, importNames, queryOptions = {}) {
-  const { uxType, newJSCard, lite, cardEntry, minCardRuntimeVersion, isTargetVivo } = queryOptions
+  const { uxType, newJSCard } = queryOptions
   let retStr = '{}'
   if (!templates.length) {
     $loader.emitError(new Error('需要模板 <template> 片段'))
@@ -426,16 +480,9 @@ function processTemplateFrag($loader, templates, importNames, queryOptions = {})
       src = fragAttrsSrc
     }
 
-    const newJSCardParam = newJSCard ? `&newJSCard=${newJSCard}` : ''
-    const liteParam = lite ? `&lite=${lite}` : ''
-    const pathParam = newJSCard ? `&uxPath=${encodeURIComponent(src)}` : ''
-    const cardEntryParam = cardEntry ? `&cardEntry=${encodeURIComponent(cardEntry)}` : ''
-    const minCardRuntimeVersionParam = minCardRuntimeVersion
-      ? `&minCardRuntimeVersion=${minCardRuntimeVersion}`
-      : ''
-    const isTargetVivoParam = isTargetVivo ? `&isTargetVivo=${isTargetVivo}` : ''
     // 解析成类似url中key[]=xxx 的形式，便于loader-utils解析
     importNames = importNames.map((item) => 'importNames[]=' + item)
+    const extraParts = [importNames.join(','), newJSCard ? `uxPath=${encodeURIComponent(src)}` : '']
     retStr = makeRequireString(
       $loader,
       makeLoaderString(
@@ -445,9 +492,7 @@ function processTemplateFrag($loader, templates, importNames, queryOptions = {})
         },
         newJSCard
       ),
-      `${src}?uxType=${uxType}&${importNames.join(
-        ','
-      )}${newJSCardParam}${liteParam}${pathParam}${cardEntryParam}${minCardRuntimeVersionParam}${isTargetVivoParam}`
+      `${src}?${buildFragmentQuery(uxType, extraParts, queryOptions)}`
     )
   }
   return retStr
@@ -460,9 +505,10 @@ function processTemplateFrag($loader, templates, importNames, queryOptions = {})
  * @param uxType
  * @param {number} newJSCard 1:卡片
  * @param {number} lite 1:轻卡
+ * @param {String} source - .ux 源码（用于计算内联片段起始行）
  */
-function processStyleFrag($loader, styles, queryOptions = {}) {
-  const { uxType, newJSCard, lite, cardEntry } = queryOptions
+function processStyleFrag($loader, styles, queryOptions = {}, source) {
+  const { uxType, newJSCard } = queryOptions
   let code = '{}'
   if (styles.length) {
     // 有且仅有一个<style>片段
@@ -478,10 +524,19 @@ function processStyleFrag($loader, styles, queryOptions = {}) {
     print({
       style: src
     })
-    const newJSCardParam = newJSCard ? `&newJSCard=${newJSCard}` : ''
-    const liteParam = lite ? `&lite=${lite}` : ''
-    const pathParam = newJSCard ? `&uxPath=${encodeURIComponent(src)}` : ''
-    const cardEntryParam = cardEntry ? `&cardEntry=${encodeURIComponent(cardEntry)}` : ''
+    const extraParts = []
+    if (newJSCard) {
+      extraParts.push(`uxPath=${encodeURIComponent(src)}`)
+    }
+    if (queryOptions.cardCtx && !fragAttrsSrc && fragAttrsLang && fragAttrsLang !== 'css') {
+      // 轻卡材质校验：内联预处理样式透传片段内容起始行与语言，
+      // 供 styleLoader 把预处理 map 的位置叠加回 .ux 源码行
+      const styleLine = source ? getFragmentContentLine(source, style) : 0
+      if (styleLine) {
+        extraParts.push(`styleLine=${styleLine}`)
+      }
+      extraParts.push(`styleLang=${fragAttrsLang}`)
+    }
     code = makeRequireString(
       $loader,
       makeLoaderString(
@@ -492,7 +547,7 @@ function processStyleFrag($loader, styles, queryOptions = {}) {
         },
         newJSCard
       ),
-      `${src}?uxType=${uxType}${newJSCardParam}${liteParam}${pathParam}${cardEntryParam}`
+      `${src}?${buildFragmentQuery(uxType, extraParts, queryOptions)}`
     )
   }
   return code
@@ -528,20 +583,27 @@ function processScriptFrag($loader, scripts, queryOptions = {}) {
         newJSCard,
         uxType
       ),
-      `${src}?uxType=${uxType}`
+      `${src}?${buildFragmentQuery(uxType, [], queryOptions)}`
     )
   }
   return code
 }
 
 /**
+ * 轻卡 <data> 片段的资源查询串：固定参数 + 公共透传（统一构造器）
+ */
+function buildDataFragQuery(queryOptions) {
+  return buildFragmentQuery(null, ['index=0'], queryOptions)
+}
+
+/**
  * 处理轻卡<data>片段中data
  * @param $loader
- * @param scripts
- * @param uxType
+ * @param datas
+ * @param queryOptions
  * @returns {string}
  */
-function processDataFrag($loader, datas, uxType) {
+function processDataFrag($loader, datas, queryOptions = {}) {
   let code = 'null'
   if (datas.length) {
     // 有且仅有一个<data>节点
@@ -554,8 +616,8 @@ function processDataFrag($loader, datas, uxType) {
     }
     code = makeRequireString(
       $loader,
-      makeLoaderString(FRAG_TYPE.DATA, {}, true, uxType),
-      `${src}?index=0&lite=1`
+      makeLoaderString(FRAG_TYPE.DATA, {}, true, queryOptions.uxType),
+      `${src}?${buildDataFragQuery(queryOptions)}`
     )
   }
   return code
@@ -564,11 +626,11 @@ function processDataFrag($loader, datas, uxType) {
 /**
  * 处理轻卡<data>片段中action
  * @param $loader
- * @param scripts
- * @param uxType
+ * @param datas
+ * @param queryOptions
  * @returns {string}
  */
-function processActionFrag($loader, datas, uxType) {
+function processActionFrag($loader, datas, queryOptions = {}) {
   let code = 'null'
   if (datas.length) {
     // 有且仅有一个<data>节点
@@ -581,8 +643,8 @@ function processActionFrag($loader, datas, uxType) {
     }
     code = makeRequireString(
       $loader,
-      makeLoaderString(FRAG_TYPE.ACTIONS, {}, true, uxType),
-      `${src}?index=0&lite=1`
+      makeLoaderString(FRAG_TYPE.ACTIONS, {}, true, queryOptions.uxType),
+      `${src}?${buildDataFragQuery(queryOptions)}`
     )
   }
   return code
@@ -592,11 +654,11 @@ function processActionFrag($loader, datas, uxType) {
  * 处理轻卡<data>片段中生命周期钩子(create/update)
  * @param $loader
  * @param datas
- * @param uxType
+ * @param queryOptions
  * @param {string} fragType - FRAG_TYPE.CREATE 或 FRAG_TYPE.UPDATE
  * @returns {string}
  */
-function processLifecycleFrag($loader, datas, uxType, fragType) {
+function processLifecycleFrag($loader, datas, queryOptions, fragType) {
   let code = 'null'
   if (datas.length) {
     // 有且仅有一个<data>节点
@@ -609,8 +671,8 @@ function processLifecycleFrag($loader, datas, uxType, fragType) {
     }
     code = makeRequireString(
       $loader,
-      makeLoaderString(fragType, {}, true, uxType),
-      `${src}?index=0&lite=1`
+      makeLoaderString(fragType, {}, true, queryOptions.uxType),
+      `${src}?${buildDataFragQuery(queryOptions)}`
     )
   }
   return code
@@ -619,25 +681,25 @@ function processLifecycleFrag($loader, datas, uxType, fragType) {
 /**
  * 处理轻卡<data>片段中 create 钩子
  */
-function processCreateFrag($loader, datas, uxType) {
-  return processLifecycleFrag($loader, datas, uxType, FRAG_TYPE.CREATE)
+function processCreateFrag($loader, datas, queryOptions = {}) {
+  return processLifecycleFrag($loader, datas, queryOptions, FRAG_TYPE.CREATE)
 }
 
 /**
  * 处理轻卡<data>片段中 update 钩子
  */
-function processUpdateFrag($loader, datas, uxType) {
-  return processLifecycleFrag($loader, datas, uxType, FRAG_TYPE.UPDATE)
+function processUpdateFrag($loader, datas, queryOptions = {}) {
+  return processLifecycleFrag($loader, datas, queryOptions, FRAG_TYPE.UPDATE)
 }
 
 /**
  * 处理轻卡自定义组件<data>片段中props
  * @param $loader
- * @param scripts
- * @param uxType
+ * @param datas
+ * @param queryOptions
  * @returns {string}
  */
-function processPropsFrag($loader, datas, uxType) {
+function processPropsFrag($loader, datas, queryOptions = {}) {
   let code = 'null'
   if (datas.length) {
     // 有且仅有一个<data>节点
@@ -650,8 +712,8 @@ function processPropsFrag($loader, datas, uxType) {
     }
     code = makeRequireString(
       $loader,
-      makeLoaderString(FRAG_TYPE.PROPS, {}, true, uxType),
-      `${src}?index=0&lite=1`
+      makeLoaderString(FRAG_TYPE.PROPS, {}, true, queryOptions.uxType),
+      `${src}?${buildDataFragQuery(queryOptions)}`
     )
   }
   return code
@@ -660,11 +722,11 @@ function processPropsFrag($loader, datas, uxType) {
 /**
  * 处理轻卡<data>片段中app(only honor)
  * @param $loader
- * @param scripts
- * @param uxType
+ * @param datas
+ * @param queryOptions
  * @returns {string}
  */
-function processDataAppFrag($loader, datas, uxType) {
+function processDataAppFrag($loader, datas, queryOptions = {}) {
   let code = 'null'
   if (datas.length) {
     // 有且仅有一个<data>节点
@@ -677,8 +739,8 @@ function processDataAppFrag($loader, datas, uxType) {
     }
     code = makeRequireString(
       $loader,
-      makeLoaderString(FRAG_TYPE.DATAPP, {}, true, uxType),
-      `${src}?index=0&lite=1`
+      makeLoaderString(FRAG_TYPE.DATAPP, {}, true, queryOptions.uxType),
+      `${src}?${buildDataFragQuery(queryOptions)}`
     )
   }
   return code
@@ -687,11 +749,11 @@ function processDataAppFrag($loader, datas, uxType) {
 /**
  * 处理轻卡<data>片段中command(only honor)
  * @param $loader
- * @param scripts
- * @param uxType
+ * @param datas
+ * @param queryOptions
  * @returns {string}
  */
-function processCommandFrag($loader, datas, uxType) {
+function processCommandFrag($loader, datas, queryOptions = {}) {
   let code = 'null'
   if (datas.length) {
     // 有且仅有一个<data>节点
@@ -704,8 +766,8 @@ function processCommandFrag($loader, datas, uxType) {
     }
     code = makeRequireString(
       $loader,
-      makeLoaderString(FRAG_TYPE.COMMANDS, {}, true, uxType),
-      `${src}?index=0&lite=1`
+      makeLoaderString(FRAG_TYPE.COMMANDS, {}, true, queryOptions.uxType),
+      `${src}?${buildDataFragQuery(queryOptions)}`
     )
   }
   return code
