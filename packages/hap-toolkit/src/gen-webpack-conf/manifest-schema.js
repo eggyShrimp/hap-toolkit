@@ -104,6 +104,20 @@ export default {
         // TODO 看下 key 不确定能否校验值，
         widgets: {
           type: 'object',
+          // 轻卡高级材质：widgets.<key>.backgroundType 取值收敛（solid | custom），
+          // 非法取值与其它字段走同一通道：编译前提示、不阻塞打包
+          additionalProperties: {
+            type: 'object',
+            properties: {
+              backgroundType: {
+                enum: ['solid', 'custom'],
+                errorMessage: ' 字段只能为 solid 或 custom'
+              }
+            },
+            errorMessage: {
+              type: " 字段类型必须为 'object'"
+            }
+          },
           errorMessage: ' 字段必须为 object 类型'
         }
       },

@@ -30,7 +30,7 @@ $app_define$('@app-component/index', [], function($app_require$, $app_exports$, 
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../hap-dsl-xvm/lib/loaders/template-loader.js!../../../../../hap-dsl-xvm/lib/loaders/fragment-loader.js?index=0&type=template!./index.ux?uxType=page&\\")
+    $app_module$.exports.template = require(\\"!../../../../../hap-dsl-xvm/lib/loaders/template-loader.js!../../../../../hap-dsl-xvm/lib/loaders/fragment-loader.js?index=0&type=template!./index.ux?uxType=page\\")
     $app_module$.exports.style = require(\\"!../../../../../hap-dsl-xvm/lib/loaders/style-loader.js?index=0&type=style!../../../../../hap-dsl-xvm/lib/loaders/fragment-loader.js?index=0&type=style!./index.ux?uxType=page\\")
 });
 $app_bootstrap$('@app-component/index',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
@@ -38,14 +38,14 @@ $app_bootstrap$('@app-component/index',{ packagerVersion: QUICKAPP_TOOLKIT_VERSI
 
 exports[`split common component on a project build results include split chunks for [SMART]  3`] = `
 "
-var $app_script$ = require(\\"!../../../../../hap-dsl-xvm/lib/loaders/script-loader.js!../../../../../../node_modules/@hap-toolkit/packager/lib/loaders/module-loader.js!../../../../../../node_modules/babel-loader/lib/index.js?cwd=<project-root>&cacheDirectory&plugins[]=<CWD>/packages/hap-dsl-xvm/lib/loaders/babel-plugin-jsx.js&comments=false&configFile=<project-root>/babel.config.js!../../../../../hap-dsl-xvm/lib/loaders/access-loader.js!../../../../../hap-dsl-xvm/lib/loaders/fragment-loader.js?index=0&type=script!./index.ux?uxType=card\\")
+var $app_script$ = require(\\"!../../../../../hap-dsl-xvm/lib/loaders/script-loader.js!../../../../../../node_modules/@hap-toolkit/packager/lib/loaders/module-loader.js!../../../../../../node_modules/babel-loader/lib/index.js?cwd=<project-root>&cacheDirectory&plugins[]=<CWD>/packages/hap-dsl-xvm/lib/loaders/babel-plugin-jsx.js&comments=false&configFile=<project-root>/babel.config.js!../../../../../hap-dsl-xvm/lib/loaders/access-loader.js!../../../../../hap-dsl-xvm/lib/loaders/fragment-loader.js?index=0&type=script!./index.ux?uxType=card&cardEntry=CardDemo&minCardRuntimeVersion=2000\\")
 $app_define$('@app-component/index', [], function($app_require$, $app_exports$, $app_module$) {
      $app_script$($app_module$, $app_exports$, $app_require$)
         if ($app_exports$.__esModule && $app_exports$.default) {
           $app_module$.exports = $app_exports$.default
         }
-    $app_module$.exports.template = require(\\"!../../../../../hap-dsl-xvm/lib/loaders/template-loader.js!../../../../../hap-dsl-xvm/lib/loaders/fragment-loader.js?index=0&type=template!./index.ux?uxType=card&&cardEntry=CardDemo&minCardRuntimeVersion=2000\\")
-    $app_module$.exports.style = require(\\"!../../../../../hap-dsl-xvm/lib/loaders/style-loader.js?index=0&type=style!../../../../../hap-dsl-xvm/lib/loaders/fragment-loader.js?index=0&type=style!./index.ux?uxType=card&cardEntry=CardDemo\\")
+    $app_module$.exports.template = require(\\"!../../../../../hap-dsl-xvm/lib/loaders/template-loader.js!../../../../../hap-dsl-xvm/lib/loaders/fragment-loader.js?index=0&type=template!./index.ux?uxType=card&cardEntry=CardDemo&minCardRuntimeVersion=2000\\")
+    $app_module$.exports.style = require(\\"!../../../../../hap-dsl-xvm/lib/loaders/style-loader.js?index=0&type=style!../../../../../hap-dsl-xvm/lib/loaders/fragment-loader.js?index=0&type=style!./index.ux?uxType=card&cardEntry=CardDemo&minCardRuntimeVersion=2000\\")
 });
 $app_bootstrap$('@app-component/index',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -54,7 +54,7 @@ exports[`split common component on a project build results include split chunks 
 "
 var $app_script$ = null
 $app_define$('@app-component/part1', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../hap-dsl-xvm/lib/loaders/template-loader.js!../../../../../hap-dsl-xvm/lib/loaders/fragment-loader.js?index=0&type=template!./part1.ux?uxType=comp&\\")
+    $app_module$.exports.template = require(\\"!../../../../../hap-dsl-xvm/lib/loaders/template-loader.js!../../../../../hap-dsl-xvm/lib/loaders/fragment-loader.js?index=0&type=template!./part1.ux?uxType=comp\\")
 });
 ;$app_define_wrap$('@app-component/part1', function () {
     })"
@@ -64,7 +64,7 @@ exports[`split common component on a project build results include split chunks 
 "
 var $app_script$ = null
 $app_define$('@app-component/part2', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../hap-dsl-xvm/lib/loaders/template-loader.js!../../../../../hap-dsl-xvm/lib/loaders/fragment-loader.js?index=0&type=template!./part2.ux?uxType=comp&\\")
+    $app_module$.exports.template = require(\\"!../../../../../hap-dsl-xvm/lib/loaders/template-loader.js!../../../../../hap-dsl-xvm/lib/loaders/fragment-loader.js?index=0&type=template!./part2.ux?uxType=comp\\")
 });
 ;$app_define_wrap$('@app-component/part2', function () {
     })"
