@@ -36,23 +36,19 @@ const LEVEL_TEXT = {
 }
 
 /**
- * 通过 source map 映射位置（0.6.x 同步 API；仅内部消费，不产出到构建结果）
+ * 按 source map 解析位置（consumer 在一次校验内复用，避免每条诊断重复解析；
+ * 0.6.x 同步 API，仅内部消费，不产出到构建结果）
  */
-function originalPositionFor(sourceMap, line, column) {
-  try {
-    const consumer = new SourceMapConsumer(sourceMap)
-    // css 解析器为 1-based 列，source map 为 0-based；先按声明列查询，再退化为行首
-    const candidates = [Math.max(0, (column || 1) - 1), 0]
-    for (let i = 0; i < candidates.length; i++) {
-      const pos = consumer.originalPositionFor({ line, column: candidates[i] })
-      if (pos && pos.line) {
-        return pos
-      }
+function originalPositionFor(consumer, line, column) {
+  // css 解析器为 1-based 列，source map 为 0-based；先按声明列查询，再退化为行首
+  const candidates = [Math.max(0, (column || 1) - 1), 0]
+  for (let i = 0; i < candidates.length; i++) {
+    const pos = consumer.originalPositionFor({ line, column: candidates[i] })
+    if (pos && pos.line) {
+      return pos
     }
-    return null
-  } catch (err) {
-    return null
   }
+  return null
 }
 
 /**
@@ -61,7 +57,7 @@ function originalPositionFor(sourceMap, line, column) {
  * - 样式表：经 source map 映射（预处理样式 → 源码；片段 → .ux），
  *   行级精度、列号近似；无法映射时降级为文件级（不输出位置）。
  */
-function resolvePosition(diagnostic, materialPosition) {
+function resolvePosition(diagnostic, materialPosition, getMapConsumer) {
   const position = diagnostic.position
   if (!position || !position.line) {
     return null
@@ -72,7 +68,16 @@ function resolvePosition(diagnostic, materialPosition) {
   if (!materialPosition || !materialPosition.sourceMap) {
     return null
   }
-  const mapped = originalPositionFor(materialPosition.sourceMap, position.line, position.column)
+  const consumer = getMapConsumer()
+  if (!consumer) {
+    return null
+  }
+  let mapped
+  try {
+    mapped = originalPositionFor(consumer, position.line, position.column)
+  } catch (err) {
+    return null
+  }
   if (!mapped) {
     return null
   }
@@ -84,7 +89,7 @@ function resolvePosition(diagnostic, materialPosition) {
   return { line, column: mapped.column || 1 }
 }
 
-function toLogEntry(diagnostic, materialPosition) {
+function toLogEntry(diagnostic, materialPosition, getMapConsumer) {
   const levelText = LEVEL_TEXT[diagnostic.level] || 'WARN'
   const reason = [
     `${levelText}: [卡片高级材质] ${diagnostic.message}`,
@@ -92,7 +97,7 @@ function toLogEntry(diagnostic, materialPosition) {
     `规范参考：${MATERIAL_SPEC_URL}`
   ].join('\n')
   const entry = { reason }
-  const position = resolvePosition(diagnostic, materialPosition)
+  const position = resolvePosition(diagnostic, materialPosition, getMapConsumer)
   if (position && position.line) {
     entry.line = position.line
     entry.column = position.column || 1
@@ -159,7 +164,24 @@ export function validateMaterialStyle(options = {}) {
     }
   })
 
+  let mapConsumer
+  let mapConsumerReady = false
+  const getMapConsumer = () => {
+    if (!mapConsumerReady) {
+      mapConsumerReady = true
+      try {
+        mapConsumer =
+          materialPosition && materialPosition.sourceMap
+            ? new SourceMapConsumer(materialPosition.sourceMap)
+            : null
+      } catch (err) {
+        mapConsumer = null
+      }
+    }
+    return mapConsumer
+  }
+
   return diagnostics
     .filter((item) => !(options.silentInfo && item.level === MATERIAL_LEVEL.INFO))
-    .map((item) => toLogEntry(item, materialPosition))
+    .map((item) => toLogEntry(item, materialPosition, getMapConsumer))
 }

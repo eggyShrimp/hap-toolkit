@@ -425,16 +425,16 @@ export const DEFAULT_MATERIAL_RULES = [
         ]
       }
       const diagnostics = []
-      const imageOrGradientCell = darkMedias.filter(
+      const darkMediaWithImage = darkMedias.filter(
         (item) => item.backgroundImage || item.background
       )[0]
-      if (imageOrGradientCell) {
+      if (darkMediaWithImage) {
         diagnostics.push(
           diagnostic(
             MATERIAL_LEVEL.ERROR,
             'MATERIAL_SOLID_DARK_IMAGE_OR_GRADIENT',
             `solid 卡片深色模式必须为纯色 ${DARK_BACKGROUND_COLOR}，不允许背景图/渐变`,
-            imageOrGradientCell.backgroundImage || imageOrGradientCell.background
+            darkMediaWithImage.backgroundImage || darkMediaWithImage.background
           )
         )
       }

@@ -270,6 +270,15 @@ describe('style/material 背景规范校验', () => {
     expect(unresolved.line).toBe(3)
   })
 
+  it('内联 background 简写参与判定（内联优先）', () => {
+    const cardCtx = Object.assign({}, SOLID_CTX, {
+      rootStyle: { background: 'linear-gradient(90deg, #FFFFFF, #F5F5F5)' },
+      rootStyleLocation: { line: 2, column: 20 }
+    })
+    const result = run(SOLID_OK_LIGHT + SOLID_OK_DARK, cardCtx)
+    expect(codes(result)).toContain('MATERIAL_SOLID_BACKGROUND_GRADIENT')
+  })
+
   it('@import 合并内容参与判定，位置降级为文件级', () => {
     const merged = '.card {\n  background-color: #FF0000;\n}' + SOLID_OK_DARK
     const result = run('@import "./part.css";', SOLID_CTX, {

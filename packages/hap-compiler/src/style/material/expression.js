@@ -331,7 +331,7 @@ function evaluate(node) {
     case '()':
       return callValues(node[1], node.slice(2))
     case '~':
-      return cartesian(node.slice(1).map((item) => evaluate(item))).map((items) => items)
+      return cartesian(node.slice(1).map((item) => evaluate(item)))
     case '{}':
       return objectValues(node[1])
     case '.':

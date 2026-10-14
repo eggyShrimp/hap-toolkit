@@ -217,15 +217,19 @@ function parse(source) {
 
   // 轻卡高级材质：背景规范校验（cardCtx 由构建链透传，缺失 / 解析失败即跳过）
   if (source.cardCtx) {
-    const materialLog = validateMaterialStyle({
-      code: source.code || '',
-      mergedCode,
-      hasImport: depList.length > 0,
-      filePath,
-      cardCtx: source.cardCtx,
-      materialPosition: source.materialPosition
-    })
-    materialLog.forEach((item) => log.push(item))
+    try {
+      const materialLog = validateMaterialStyle({
+        code: source.code || '',
+        mergedCode,
+        hasImport: depList.length > 0,
+        filePath,
+        cardCtx: source.cardCtx,
+        materialPosition: source.materialPosition
+      })
+      materialLog.forEach((item) => log.push(item))
+    } catch (err) {
+      // 校验（含诊断格式化）异常不影响样式编译，安全降级
+    }
   }
 
   // 是否压缩CSS属性名
