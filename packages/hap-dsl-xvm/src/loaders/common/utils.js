@@ -186,6 +186,26 @@ export function splitSourceLine(source) {
 }
 
 /**
+ * 计算片段内容（trim 前）在源文件中的起始行（1-based）
+ * 片段内容起始偏移由 parseFragments 的 location.start（startTag.endOffset）给出；
+ * trim 掉的前导空行一并计入，保证 trim 后内容首行的行号准确。
+ *
+ * @param {String} source - 源文件全文
+ * @param {Object} fragment - 片段信息（parseFragments 结果项）
+ * @returns {Number} trim 后片段内容首行的行号
+ */
+export function getFragmentContentLine(source, fragment) {
+  const location = (fragment && fragment.location) || {}
+  const start = location.start || 0
+  const before = typeof source === 'string' ? source.slice(0, start) : ''
+  const contentStartLine = (before.match(REGEXP_LINE) || []).length + 1
+  const rawContent = (fragment && fragment.content) || ''
+  const leading = rawContent.slice(0, rawContent.length - rawContent.replace(/^\s+/, '').length)
+  const leadingNewlines = (leading.match(REGEXP_LINE) || []).length
+  return contentStartLine + leadingNewlines
+}
+
+/**
  * 打印日志
  * @param str
  */

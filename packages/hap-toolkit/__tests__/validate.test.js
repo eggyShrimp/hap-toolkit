@@ -100,3 +100,35 @@ it('validateJson', () => {
   errors = validateJson(wrongJson, 'manifest.json').map((err) => err.message)
   expect(errors.join('\n\n')).toMatchSnapshot()
 })
+
+it('backgroundType 取值收敛到 schema 枚举（存在性不强制）', () => {
+  const clone = (widgets) =>
+    Object.assign({}, manifestJson, {
+      router: Object.assign({}, manifestJson.router, { widgets })
+    })
+
+  const valid = validateJson(
+    clone({
+      CardDemo: { path: 'CardDemo', component: 'index', type: 'lite', backgroundType: 'solid' },
+      CardCustom: {
+        path: 'CardCustom',
+        component: 'index',
+        type: 'lite',
+        backgroundType: 'custom'
+      },
+      CardDefault: { path: 'CardDefault', component: 'index', type: 'lite' }
+    }),
+    'manifest.json'
+  ).map((err) => err.message)
+  expect(valid.join('\n')).not.toContain('backgroundType')
+
+  const invalid = validateJson(
+    clone({
+      CardBad: { path: 'CardBad', component: 'index', type: 'lite', backgroundType: 'glossy' }
+    }),
+    'manifest.json'
+  ).map((err) => err.message)
+  expect(invalid.join('\n')).toContain('router.widgets.CardBad.backgroundType')
+  expect(invalid.join('\n')).toContain('solid 或 custom')
+  expect(invalid.join('\n')).toContain('参考:')
+})

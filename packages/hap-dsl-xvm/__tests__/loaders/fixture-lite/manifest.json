@@ -1,0 +1,21 @@
+{
+  "package": "com.mock.lite",
+  "name": "liteFixture",
+  "icon": "/Common/logo.png",
+  "versionCode": 1,
+  "versionName": "1.0.0",
+  "minPlatformVersion": 1000,
+  "router": {
+    "widgets": {
+      "Lite1": {
+        "path": "Lite1",
+        "type": "lite",
+        "backgroundType": "solid"
+      },
+      "Lite2": {
+        "path": "Lite2",
+        "type": "lite"
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Card 编译测试 compile-card: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestCard/Card1/testcard1.ux?uxType=card& 1`] = `
+exports[`Card 编译测试 compile-card: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestCard/Card1/testcard1.ux?uxType=card 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -69,7 +69,7 @@ exports[`Card 编译测试 compile-card: ../../../lib/loaders/template-loader.js
 }"
 `;
 
-exports[`Card 编译测试 compile-card: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestCard/Card2/testcard2.ux?uxType=card& 1`] = `
+exports[`Card 编译测试 compile-card: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestCard/Card2/testcard2.ux?uxType=card 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -205,7 +205,7 @@ exports[`Card 编译测试 compile-card: ../../../lib/loaders/template-loader.js
 }"
 `;
 
-exports[`Card 编译测试 compile-card: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestCard/Events1/testevents1.ux?uxType=card& 1`] = `
+exports[`Card 编译测试 compile-card: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestCard/Events1/testevents1.ux?uxType=card 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -242,7 +242,7 @@ exports[`Card 编译测试 compile-card: ../../../lib/loaders/template-loader.js
 }"
 `;
 
-exports[`Card 编译测试 compile-card: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestCard/Events2/testevents2.ux?uxType=card& 1`] = `
+exports[`Card 编译测试 compile-card: ../../../lib/loaders/template-loader.js!../../../lib/loaders/fragment-loader.js?index=0&type=template!./TestCard/Events2/testevents2.ux?uxType=card 1`] = `
 "module.exports = {
   \\"type\\": \\"div\\",
   \\"attr\\": {},
@@ -276,7 +276,7 @@ exports[`Card 编译测试 compile-card: ./TestCard/Card1/testcard1.ux?uxType=ca
 "
 var $app_script$ = null
 $app_define$('@app-component/testcard1', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testcard1.ux?uxType=card&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testcard1.ux?uxType=card\\")
 });
 $app_bootstrap$('@app-component/testcard1',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -285,7 +285,7 @@ exports[`Card 编译测试 compile-card: ./TestCard/Card2/testcard2.ux?uxType=ca
 "
 var $app_script$ = null
 $app_define$('@app-component/testcard2', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testcard2.ux?uxType=card&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testcard2.ux?uxType=card\\")
 });
 $app_bootstrap$('@app-component/testcard2',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -294,7 +294,7 @@ exports[`Card 编译测试 compile-card: ./TestCard/Events1/testevents1.ux?uxTyp
 "
 var $app_script$ = null
 $app_define$('@app-component/testevents1', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testevents1.ux?uxType=card&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testevents1.ux?uxType=card\\")
 });
 $app_bootstrap$('@app-component/testevents1',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;
@@ -303,7 +303,7 @@ exports[`Card 编译测试 compile-card: ./TestCard/Events2/testevents2.ux?uxTyp
 "
 var $app_script$ = null
 $app_define$('@app-component/testevents2', [], function($app_require$, $app_exports$, $app_module$) {
-    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testevents2.ux?uxType=card&\\")
+    $app_module$.exports.template = require(\\"!../../../../../lib/loaders/template-loader.js!../../../../../lib/loaders/fragment-loader.js?index=0&type=template!./testevents2.ux?uxType=card\\")
 });
 $app_bootstrap$('@app-component/testevents2',{ packagerVersion: QUICKAPP_TOOLKIT_VERSION });"
 `;

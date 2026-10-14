@@ -15,6 +15,7 @@ import {
   processMediaQueryCss,
   shouldAddToDependency
 } from './process'
+import { validateMaterialStyle } from './material'
 import { hyphenedToCamelCase, isEmptyObject, isValidValue } from '../utils'
 
 /**
@@ -36,7 +37,8 @@ function parse(source) {
   const depList = []
 
   // 合并css
-  code = processImport(code, curDir, log, depList)
+  const mergedCode = processImport(code, curDir, log, depList)
+  code = mergedCode
 
   // css解析
   const ast = css.parse(code, { silent: true })
@@ -212,6 +214,24 @@ function parse(source) {
       }
     })
   }
+
+  // 轻卡高级材质：背景规范校验（cardCtx 由构建链透传，缺失 / 解析失败即跳过）
+  if (source.cardCtx) {
+    try {
+      const materialLog = validateMaterialStyle({
+        code: source.code || '',
+        mergedCode,
+        hasImport: depList.length > 0,
+        filePath,
+        cardCtx: source.cardCtx,
+        materialPosition: source.materialPosition
+      })
+      materialLog.forEach((item) => log.push(item))
+    } catch (err) {
+      // 校验（含诊断格式化）异常不影响样式编译，安全降级
+    }
+  }
+
   // 是否压缩CSS属性名
   if (compileOptionsObject.optimizeCssAttr) {
     compressCssAttr(jsonStyle)
@@ -233,3 +253,11 @@ export default {
 }
 
 export * from './process'
+export {
+  validateMaterialStyle,
+  buildMaterialContext,
+  expandTemplateValue,
+  DEFAULT_MATERIAL_RULES,
+  MATERIAL_SPEC_URL,
+  MATERIAL_LEVEL
+} from './material'

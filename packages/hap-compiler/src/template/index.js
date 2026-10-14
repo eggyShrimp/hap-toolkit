@@ -12,6 +12,7 @@ import Tokenizer from 'parse5/lib/tokenizer'
 import { colorconsole, compileOptionsObject } from '@hap-toolkit/shared-utils'
 import validator from './validator'
 import { compressTemplateAttr } from './compress'
+import { extractRootMeta } from './root-meta'
 
 /**
  * 计算支持span的节点的有效子节点数
@@ -469,5 +470,6 @@ function parse(source, options) {
 
 export default {
   parse,
-  validator
+  validator,
+  extractRootMeta
 }

@@ -155,7 +155,8 @@ describe('测试compile', () => {
       json.modules.forEach((module, index) => {
         expect(wipeDynamic(module.source, [[projectRoot, '<project-root>']])).toMatchSnapshot()
       })
-      expect(json.assets.map((a) => a.name)).toMatchSnapshot('assets list')
+      // assets 产出顺序依赖 webpack 内部完成时序，断言按名称排序消除顺序敏感性
+      expect(json.assets.map((a) => a.name).sort()).toMatchSnapshot('assets list')
       // eg. '\u001B[4mUnicorn\u001B[0m' => 'Unicorn'
       const output = stripAnsi(outputs.join('\n'))
       expect(wipeDynamic(output)).toMatchSnapshot('outputs')

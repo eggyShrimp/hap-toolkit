@@ -5,7 +5,7 @@
 
 import loaderUtils from 'loader-utils'
 import { parseFragmentsWithCache, FRAG_TYPE } from '@hap-toolkit/compiler'
-import { splitSourceLine, generateMap, consumeMap } from './common/utils'
+import { splitSourceLine, generateMap, consumeMap, getFragmentContentLine } from './common/utils'
 
 export default function fragmentLoader(source, inputSourceMap) {
   const callback = this.async()
@@ -30,9 +30,23 @@ export default function fragmentLoader(source, inputSourceMap) {
       // 节点的文本内容
       let content = result.content.trim()
 
-      // 只有js文件生成map
       let map
-      if (this.sourceMap && (type === FRAG_TYPE.SCRIPT || type === FRAG_TYPE.IMPORT)) {
+      if (type === FRAG_TYPE.STYLE) {
+        // 样式片段始终生成行级 map（与 devtool 解耦）：片段内容 → .ux 源码行，
+        // 供轻卡材质校验映射源码位置（仅内部消费，不新增输出资产）
+        const contentLineStart = getFragmentContentLine(source, result)
+        const iterator = splitSourceLine(content).map((input, line) => ({
+          original: {
+            line: contentLineStart + line,
+            column: 0
+          },
+          generated: {
+            line: line + 1,
+            column: 0
+          }
+        }))
+        map = generateMap(this, source, iterator)
+      } else if (this.sourceMap && (type === FRAG_TYPE.SCRIPT || type === FRAG_TYPE.IMPORT)) {
         const contentLineStart = result.location.line
 
         let cmap
