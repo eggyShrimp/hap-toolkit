@@ -1,7 +1,7 @@
 ## Context
 
-- 目标：让 hap-toolkit（alpha 分支，基线 `2.0.9-alpha.1`，源码 = `feat/material-compile-support@4d497c0`）支持轻卡 `<data>.uiData` 值中的 `{{expr}}` 表达式编译
-- 需求来源：《意图参数传参方案对比（三种标准）》采用**方案二**——意图数据落在系统变量 `system.env.intentInfo`，开发者在 `uiData` 中写表达式映射到自有变量；会议共识：uiData 初始化阶段**仅允许静态系统变量引用、禁止任何 feature 函数调用**，表达式**仅在卡片创建时求值一次**（[飞书文档](https://mi.feishu.cn/docx/UYBDdFMqNo3IZExqy68cTgTMnB0)）
+- 目标：让 hap-toolkit（alpha 分支，当前基线 `2.0.9-alpha.3`，源码 = `feat/lite-card-uidata-expression`）支持轻卡 `<data>.uiData` 值中的 `{{expr}}` 表达式编译（变更起点 `2.0.9-alpha.1`，编译端已随 alpha.2 / alpha.3 交付）
+- 需求来源：《意图参数传参方案对比（三种标准）》采用**方案二**——意图数据落在系统变量 `system.env.intentInfo`，开发者在 `uiData` 中写表达式映射到自有变量；2026-09-14 方案二次 review 共识：uiData 表达式需支持非耗时（同步）调用、**耗时 Feature 由编译工具链校验拦截**，表达式**仅在卡片创建时求值一次**；本次修复按 alpha.3 口径最小放宽，仅放行非耗时 Feature 调用（`system.*` / `service.*`）（[方案对比](https://mi.feishu.cn/docx/UYBDdFMqNo3IZExqy68cTgTMnB0) / [二次 review 纪要](https://mi.feishu.cn/docx/AI6WdUDGjozU8kx30vRcXtLBnEb)）
 - 现状（2026-10-12 实测）：
   - 编译链路：`<data>` 片段 → `fragment-loader` 按 key 分发给 `data-loader`（`uiData`）/ `action-loader`（`actions`）/ `create-loader`、`update-loader`（`create` / `update`）→ `ux-loader` 导出 `uidata` → `CardPlugin` 收集为 `#entry.data` → `postHandleLiteCardRes` 后处理
   - `actions` / `create` / `update` 的 params 已编译为 `#key`（AST）+ `$key`（原文），`uiData` 未编译：`{{ system.device.DEVICE_TYPE }}` 原样输出
@@ -9,7 +9,7 @@
   - 打包器（`processAssets` 阶段）抛错会让 `compile()` 以不可读错误整体失败；loader 阶段报错会进入 `stats.errors`（含文件路径）——表达式规则校验必须前置到 loader 阶段
 - 约束：
   - 表达式由卡片引擎求值（轻卡无 JS 运行时，Rust / Java 引擎各自实现求值器），工具链只负责编译产物与校验——产物契约必须与引擎侧对齐
-  - uiData 表达式仅支持静态系统变量引用与表达式计算（如 `system.env.intentInfo`），禁止 feature 调用；仅创建时求值一次
+  - uiData 表达式支持静态系统变量引用、表达式计算与非耗时 Feature 调用（普通函数 / 方法调用禁止），耗时 Feature 编译期拦截（与模板共用同一份黑名单）；仅创建时求值一次
   - 工具链不能凭空引入运行时行为，未对齐契约前能力默认关闭（编译开关），避免存量卡片受影响
   - `uiData` 是数据 schema，标记字段不得破坏既有合并语义（Provider 覆盖必须仍然生效）
   - 本改动不一定合入上游 main（契约与引擎版本相关），架构上可裁剪、可回退
@@ -19,9 +19,9 @@
 **Goals:**
 
 - `uiData` 任意层级字符串值中的 `{{expr}}` 能编译为卡片表达式标记，产物形态与引擎求值契约一致
-- 表达式静态性约束在**源码阶段**（loader）被强制执行：仅静态系统变量引用 + 表达式计算，禁止 feature / 函数调用（`$t` / `$tc` 除外），错误含文件与数据路径
+- 表达式约束在**源码阶段**（loader）被强制执行：允许静态系统变量引用、表达式计算与非耗时 Feature 调用，耗时 Feature（与模板共用同一份黑名单）与普通函数 / 方法调用报错，错误含文件与数据路径
 - 不含表达式的卡片产物与改造前完全一致（回归可证、字节级）
-- 非法写法（保留前缀 / 动态 key、语法错误、feature 调用）在编译期被发现并给出可定位诊断
+- 非法写法（保留前缀 / 动态 key、语法错误、耗时 Feature 与普通函数 / 方法调用）在编译期被发现并给出可定位诊断
 - 能力可开关、可回滚；不影响 JS 卡
 - 与引擎对齐契约（含创建时一次性求值语义），并有真机验收用例
 
@@ -37,10 +37,10 @@
 
 ### D1. 校验在编译器、编译在打包器（与 actions / create / update 同一分工）
 
-- **选择**：`hap-compiler` 新增 `src/data`（对外导出 `parseData`，对齐 `parseActions` / `parseLifecycle`），校验包含表达式解析（语法 + 静态性规则）；`hap-dsl-xvm` 的 `data-loader` 调用校验（错误信息带上 `<data>` 所在文件）；`hap-packager` 的 `postHandleLiteCardRes` 增加 `postHandleData` 做 AST 编译（复用 `getPrefixExpr` / `getExprRes`，与 template / actions / create 完全同规则）
+- **选择**：`hap-compiler` 新增 `src/data`（对外导出 `parseData`，对齐 `parseActions` / `parseLifecycle`），校验包含表达式语法解析、Feature 调用识别与耗时 Feature 拦截（黑名单复用模板同一份）；`hap-dsl-xvm` 的 `data-loader` 调用校验（错误信息带上 `<data>` 所在文件）；`hap-packager` 的 `postHandleLiteCardRes` 增加 `postHandleData` 做 AST 编译（复用 `getPrefixExpr` / `getExprRes`，与 template / actions / create 完全同规则）
 - **理由**：
-  - 表达式规则必须在 **loader 阶段**执行：打包器 `processAssets` 阶段抛错会让 `compile()` 以不可读错误失败（webpack 侧不对其归类为 `compilation.errors`），而 loader 报错会进入 `stats.errors`，构建失败但诊断完整（文件路径 + 数据路径）
-  - 规则校验需要解析表达式 AST（区分静态引用与函数调用），因此 `hap-compiler` 引入 `@aiot-toolkit/card-expression`（与 packager 同一版本；packager 仍负责产物 AST 编译）
+  - 表达式规则必须在 **loader 阶段**执行：打包器 `processAssets` 阶段抛错会让 `compile()` 以不可读错误整体失败（webpack 侧不对其归类为 `compilation.errors`），而 loader 报错会进入 `stats.errors`，构建失败但诊断完整（文件路径 + 数据路径）
+  - 表达式语法错误与调用约束需要在 loader 阶段定位（解析依赖 `@aiot-toolkit/card-expression`，与 packager 同一版本；packager 仍负责产物 AST 编译）；Feature 调用基于 AST 路径判定（`system.*` / `service.*`），耗时 Feature 黑名单复用模板同一份（`src/common/forbidden-feature.js`）
   - 编译在后处理阶段与其它表达式载体共用转换规则，行为自然一致
 - **备选**：规则放在打包器（`postHandleData`）——构建失败时无法给出干净诊断（实测 `compile()` 报 `Cannot read properties of undefined`），不采用
 - **备选**：全部放进 `data-loader`——需要给 dsl-xvm 增加 card-expression 依赖，且与既有分工不一致，不采用
@@ -69,13 +69,14 @@
 
 ### D4. 编译期校验规则
 
-| 规则           | 级别  | 说明                                                                                                                                                          |
-| -------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 保留前缀 key   | ERROR | key 以 `$` / `#` 开头会与标记字段冲突，任意层级生效（含数组内对象的 key）                                                                                     |
-| 动态 key       | ERROR | key 必须为静态字符串，任意层级生效                                                                                                                            |
-| 表达式解析失败 | ERROR | `{{expr}}` 无法编出 AST（语法错误 / 空表达式）；信息含文件、数据路径、表达式原文                                                                              |
-| Feature / 函数 | ERROR | 表达式仅支持**静态系统变量引用**（如 `system.env.intentInfo`）与表达式计算，禁止调用 Feature / 函数（`system.xxx()`、`Math.max()`、方法调用等），任意层级生效 |
-| `$t` / `$tc`   | 允许  | 国际化函数，与 card-expression 默认及引擎能力一致（调用白名单）                                                                                               |
+| 规则            | 级别  | 说明                                                                                                                            |
+| --------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------- |
+| 保留前缀 key    | ERROR | key 以 `$` / `#` 开头会与标记字段冲突，任意层级生效（含数组内对象的 key）                                                       |
+| 动态 key        | ERROR | key 必须为静态字符串，任意层级生效                                                                                              |
+| 表达式解析失败  | ERROR | `{{expr}}` 无法编出 AST（语法错误 / 空表达式）；信息含文件、数据路径、表达式原文                                                |
+| 耗时 Feature    | ERROR | `system.geolocation.getLocation` / `service.push.subscribe`（与模板共用同一份黑名单）禁止，任意层级生效                         |
+| 普通函数 / 方法 | ERROR | 非 Feature 命名空间（`system.*` / `service.*`）的调用禁止（如 `Math.max()`、`'1.00'.split()`），`$t` / `$tc` 除外，任意层级生效 |
+| `$t` / `$tc`    | 允许  | 国际化函数，与 card-expression 默认及引擎能力一致；非耗时 Feature 调用（`system.*` / `service.*`）放行                          |
 
 > 校验在 **loader 阶段**执行（`data-loader` → `parseData`）：报错进入 `stats.errors`，含 `<data>` 所在文件与数据路径；打包器 `processAssets` 阶段抛错无法给出干净诊断（见 D1）。
 
@@ -94,7 +95,7 @@
 
 ### D7. 分支与交付
 
-- 基线 `2.0.9-alpha.1`（`feat/material-compile-support@4d497c0`）；本变更分支 `feat/lite-card-uidata-expression`
+- 变更起点 `2.0.9-alpha.1`（`feat/material-compile-support@4d497c0`）；编译端已随 `2.0.9-alpha.2 / alpha.3`（`feat/lite-card-uidata-expression`）交付；本次「非耗时 Feature 放行」修复基于 `2.0.9-alpha.3` 构建 `2.0.9-alpha.4` 交付
 - 不夹带版本号改动；OpenSpec 产物仅随分支
 - 契约未闭环前只合入编译端（默认关闭），引擎就绪后翻转默认值并发布 alpha
 
@@ -105,6 +106,7 @@
 - [保留 `k` 带来的数据体积增加] → 仅表达式 key 有增量（AST + 快捷值），template.json 编译压缩后可控；如体积敏感评估备选形态
 - [数组元素标记对象在旧引擎下变为对象（无法保留字面量）] → 表达式能力面向支持契约的引擎；开关 opt-in + 引擎版本门槛评估
 - [表达式引用其它 key / Provider 数据造成时序歧义] → 契约明确「默认值求值不依赖运行时数据」，引用兄弟 key 的求值顺序由引擎契约定义
+- [普通函数 / 方法调用（如 `Math.max`）暂不放行，能力少于 2026-09-14 共识的「范围与模板对齐」完整口径] → 先按 alpha.3 口径最小放宽（仅放行非耗时 Feature 调用）；与模板完全对齐待引擎求值支持范围确认后评估
 - [误伤存量卡片] → 保留前缀 key / 动态 key 此前无合法行为，报错面极小；新规则只作用于含 `{{}}` 的值
 - [alpha 分支与上游 main 分叉] → OpenSpec 与实现随 alpha 分支管理，向上游提交时剔除流程产物与版本号
 
@@ -122,4 +124,6 @@
 - uiData 表达式引用其它 uiData key（含嵌套路径）的求值顺序语义，由引擎契约定义
 - 数组元素标记对象在旧引擎上的行为是否需要额外门槛（`minCardPlatformVersion` 或能力声明）
 - `system.env.intentInfo` 的字段裁剪/空值语义（SDK 未传意图参数时，静态引用求值结果为空还是 undefined）由引擎契约定义
+- 普通函数 / 方法调用是否放宽至与模板完全一致（编译期放行 + 引擎求值兜底），待引擎求值器支持范围确认
+- 耗时（异步）函数的统一标识（如 `async` 后缀）与使用范围收敛（2026-09-14 二次 review 待办，后续优化；本变更按现有黑名单拦截）
 - `uiData` 表达式与 `create` / `update` params 的表达能力是否收敛为同一份「轻卡表达式白名单」并统一文档

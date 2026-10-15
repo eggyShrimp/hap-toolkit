@@ -58,34 +58,39 @@
 - **WHEN** `uiData` 含 key `"{{ text }}"`（含嵌套层级）
 - **THEN** 编译失败并提示 key 必须为静态字符串，错误信息包含数据路径
 
-### Requirement: uiData 表达式的静态性约束
+### Requirement: uiData 表达式的函数 / Feature 调用约束
 
-编译器 SHALL 在源码阶段（loader）校验 `uiData` 表达式：仅支持**静态系统变量引用**（如 `system.env.intentInfo`）与**表达式计算**（拼接、算术、比较、三元、逻辑、字面量、数组/对象字面量）；**禁止调用 Feature / 函数**（如 `system.xxx()`、`Math.max()`、方法调用），`$t` / `$tc` 国际化函数除外。约束在任意层级生效，错误信息包含文件与数据路径。
+编译器 SHALL 在源码阶段（loader）校验 `uiData` 表达式：支持**静态系统变量引用**（如 `system.env.intentInfo`）、**表达式计算**（拼接、算术、比较、三元、逻辑、字面量、数组/对象字面量）与**非耗时 Feature 调用**（`system.*` / `service.*`，如 `system.package.hasInstalled(...)`）；**禁止耗时 Feature 调用**（`system.geolocation.getLocation` / `service.push.subscribe`，与模板共用同一份黑名单）与**普通函数 / 方法调用**（`Math.max()`、`'1.00'.split('.')[0]` 等，`$t` / `$tc` 除外）。约束在任意层级生效，错误信息包含文件与数据路径。
 
 #### Scenario: 静态系统变量引用与表达式计算通过
 
 - **WHEN** `uiData` 含 `"intentName": "{{ system.env.intentInfo.intentionProperty.name }}"`、`"balanceText": "余额 {{ system.env.intentInfo.slots.amount }} 元"`、`"tip": "{{ system.env.intentInfo.slots.amount > 0 ? '有余额' : '无余额' }}"`
 - **THEN** 正常编译（静态引用 + 拼接 / 比较 / 三元）
 
-#### Scenario: feature 调用被拒绝
+#### Scenario: 非耗时 feature 调用通过
 
-- **WHEN** `uiData` 含 `"lat": "{{ system.geolocation.getLocation().latitude }}"` 或 `"a": "{{ system.package.hasInstalled({ package: 'x' }).result }}"`
-- **THEN** 编译失败并提示「禁止调用 Feature / 函数」，信息含文件与数据路径
+- **WHEN** `uiData` 含 `"a": "{{ system.package.hasInstalled({ package: 'x' }).result }}"`
+- **THEN** 正常编译（非耗时 Feature 调用放行）
 
-#### Scenario: 嵌套 / 数组内 feature 调用被拒绝
+#### Scenario: 耗时 feature 调用被拒绝
 
-- **WHEN** `uiData` 含 `"nested": { "deep": "{{ system.device.getInfo() }}" }` 或 `"list": ["a", "{{ service.push.subscribe() }}"]`
+- **WHEN** `uiData` 含 `"lat": "{{ system.geolocation.getLocation().latitude }}"` 或 `"a": "{{ service.push.subscribe() }}"`
+- **THEN** 编译失败并提示「耗时 Feature」，信息含文件与数据路径
+
+#### Scenario: 嵌套 / 数组内耗时 feature 调用被拒绝
+
+- **WHEN** `uiData` 含 `"nested": { "deep": "{{ system.geolocation.getLocation() }}" }` 或 `"list": ["a", "{{ service.push.subscribe() }}"]`
 - **THEN** 编译失败，错误信息包含数据路径 `nested.deep` / `list[1]`
 
 #### Scenario: 普通函数 / 方法调用被拒绝
 
 - **WHEN** `uiData` 含 `"a": "{{ Math.max(1, 2) }}"` 或 `"b": "{{ '1.00'.split('.')[0] }}"`
-- **THEN** 编译失败（仅静态引用与计算允许）
+- **THEN** 编译失败（仅静态系统变量引用、表达式计算与非耗时 Feature 调用允许）
 
 #### Scenario: 国际化函数放行
 
 - **WHEN** `uiData` 含 `"name": "{{ $t('card.intentName') }}"` 或 `"count": "{{ $tc('card.count', 2) }}"`
-- **THEN** 正常编译（`$t` / `$tc` 属于调用白名单）
+- **THEN** 正常编译（`$t` / `$tc` 属于允许的调用白名单）
 
 #### Scenario: 表达式无法解析
 
