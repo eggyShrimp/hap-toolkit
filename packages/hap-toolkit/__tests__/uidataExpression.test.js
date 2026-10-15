@@ -44,7 +44,8 @@ const LITE_CARD_UX = `<!--
       "objs": [{ "label": "{{ system.device.DEVICE_TYPE }}" }]
     },
     "intentName": "{{ system.env.intentInfo.intentionProperty.name }}",
-    "balanceText": "余额 {{ system.env.intentInfo.slots.amount }} 元"
+    "balanceText": "余额 {{ system.env.intentInfo.slots.amount }} 元",
+    "installed": "{{ system.package.hasInstalled({ package: 'com.meituan' }).result }}"
   },
   "actions": {
     "onTap": {
@@ -111,6 +112,7 @@ describe('测试轻卡 uiData 表达式编译', () => {
       expect(data['#des']).toBeUndefined()
       expect(data['$des']).toBeUndefined()
       expect(data.nested['#deep']).toBeUndefined()
+      expect(data['#installed']).toBeUndefined()
     },
     5 * 60 * 1000
   )
@@ -153,6 +155,11 @@ describe('测试轻卡 uiData 表达式编译', () => {
       expect(Array.isArray(data['#intentName'])).toBe(true)
       expect(data['#balanceText'][0]).toBe('+')
       expect(data['$balanceText']).toBe('余额 {{ system.env.intentInfo.slots.amount }} 元')
+      // 非耗时 Feature 调用与模板一致：放行并编译为标记
+      expect(data.installed).toBe(
+        "{{ system.package.hasInstalled({ package: 'com.meituan' }).result }}"
+      )
+      expect(Array.isArray(data['#installed'])).toBe(true)
     },
     5 * 60 * 1000
   )
@@ -185,14 +192,14 @@ describe('测试轻卡 uiData 表达式编译', () => {
   )
 
   it(
-    '非法写法：Feature / 函数调用编译失败（仅允许静态系统变量引用与计算）',
+    '非法写法：耗时 Feature 调用编译失败（黑名单与模板一致，含文件与数据路径）',
     async () => {
       const source = fs.readFileSync(uxPath, 'utf8')
       fs.writeFileSync(
         uxPath,
         source.replace(
           '"name": "静态对象"',
-          '"name": "{{ system.package.hasInstalled({ package: \'com.meituan\' }).result }}"'
+          '"name": "{{ system.geolocation.getLocation().latitude }}"'
         )
       )
       try {
@@ -203,8 +210,9 @@ describe('测试轻卡 uiData 表达式编译', () => {
           .map((item) => item.message || String(item))
           .join('\n')
         expect(errors).toContain('CardDemo/index.ux')
-        expect(errors).toContain('禁止调用 Feature / 函数')
-        expect(errors).toContain('system.env.intentInfo')
+        expect(errors).toContain('耗时 Feature')
+        expect(errors).toContain('system.geolocation.getLocation')
+        expect(errors).toContain('nested.name')
       } finally {
         fs.writeFileSync(uxPath, source)
       }

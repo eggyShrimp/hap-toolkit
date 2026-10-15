@@ -49,20 +49,33 @@ describe('compiler data uiData 校验', () => {
     expect(() => parseData({ nested: { '{{ text }}': 'x' } })).toThrow('nested.{{ text }}')
   })
 
-  it('禁止调用 Feature / 函数（system.xxx 调用），任意层级生效', () => {
-    expect(() => parseData({ lat: '{{ system.geolocation.getLocation().latitude }}' })).toThrow(
-      '禁止调用 Feature / 函数'
-    )
+  it('非耗时 Feature 调用放行（普通函数 / 方法调用仍禁止）', () => {
     expect(() =>
       parseData({ a: '{{ system.package.hasInstalled({ package: "com.meituan" }).result }}' })
-    ).toThrow('仅支持静态系统变量引用')
-    expect(() => parseData({ nested: { deep: '{{ system.device.getInfo() }}' } })).toThrow(
+    ).not.toThrow()
+    expect(() => parseData({ nested: { deep: '{{ system.device.getInfo() }}' } })).not.toThrow()
+
+    // 非 Feature 命名空间的函数 / 方法调用保持禁止
+    expect(() => parseData({ a: '{{ Math.max(1, 2) }}' })).toThrow('禁止调用其他函数 / 方法')
+    expect(() => parseData({ a: '{{ "1.00".split(".")[0] }}' })).toThrow('禁止调用其他函数 / 方法')
+    expect(() => parseData({ nested: { deep: '{{ foo() }}' } })).toThrow('仅支持静态系统变量引用')
+  })
+
+  it('耗时 Feature 调用被拒绝（与模板共用同一份黑名单），任意层级生效', () => {
+    expect(() => parseData({ lat: '{{ system.geolocation.getLocation().latitude }}' })).toThrow(
+      '耗时 Feature'
+    )
+    expect(() => parseData({ lat: '{{ system.geolocation.getLocation().latitude }}' })).toThrow(
+      'system.geolocation.getLocation'
+    )
+    // 计算属性访问同样归一化到点号路径，黑名单可命中
+    expect(() => parseData({ lat: '{{ system["geolocation"].getLocation() }}' })).toThrow(
+      '耗时 Feature'
+    )
+    expect(() => parseData({ nested: { deep: '{{ service.push.subscribe() }}' } })).toThrow(
       'nested.deep'
     )
     expect(() => parseData({ list: ['a', '{{ service.push.subscribe() }}'] })).toThrow('list[1]')
-    // 非 feature 的普通函数 / 方法调用同样禁止
-    expect(() => parseData({ a: '{{ Math.max(1, 2) }}' })).toThrow('禁止调用 Feature / 函数')
-    expect(() => parseData({ a: '{{ "1.00".split(".")[0] }}' })).toThrow('禁止调用 Feature / 函数')
   })
 
   it('$t / $tc 国际化函数放行', () => {
